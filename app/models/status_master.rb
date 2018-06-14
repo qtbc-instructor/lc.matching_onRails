@@ -1,0 +1,2 @@
+class StatusMaster < ApplicationRecord
+end

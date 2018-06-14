@@ -1,0 +1,17 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  user_id: 1
+  company_id: 1
+  skill_master_id: 1
+  status_master_id: 1
+  date: 2018-06-14
+  score: 1
+
+two:
+  user_id: 1
+  company_id: 1
+  skill_master_id: 1
+  status_master_id: 1
+  date: 2018-06-14
+  score: 1
