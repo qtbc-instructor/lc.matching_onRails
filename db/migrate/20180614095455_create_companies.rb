@@ -6,5 +6,6 @@ class CreateCompanies < ActiveRecord::Migration[5.0]
 
       t.timestamps
     end
+    add_foreign_key :company, :status, column: :company_id
   end
 end
