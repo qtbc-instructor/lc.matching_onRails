@@ -31,6 +31,7 @@ ActiveRecord::Schema.define(version: 20180614095848) do
     t.string   "skilltype"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["skilltype"], name: "index_skill_masters_on_skilltype", unique: true
   end
 
   create_table "skills", force: :cascade do |t|
