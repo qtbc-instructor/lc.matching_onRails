@@ -1,9 +1,15 @@
 class CompanyController < ApplicationController
 
+  # def index
+  #   @msg = '企業マイページ'
+  # end
+
+  # def index
+  #   @company_name = Company.find(params[:user_id])
+  # end
+
   def index
-    @msg = '企業マイページ'
+    @company = Company.all
   end
 
-  def user
-    @company_name = find  
 end
