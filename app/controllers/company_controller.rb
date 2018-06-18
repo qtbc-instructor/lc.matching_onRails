@@ -3,8 +3,17 @@ class CompanyController < ApplicationController
 
   # GET /books
   # GET /books.json
+
+  # def index
+  #   @msg = '企業マイページ'
+  # end
+
+  # def index
+  #   @company_name = Company.find(params[:user_id])
+  # end
+
   def index
-    @companies = Company.all
+    @company = Company.all
   end
 
 end
