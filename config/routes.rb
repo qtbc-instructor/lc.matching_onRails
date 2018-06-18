@@ -6,3 +6,4 @@ Rails.application.routes.draw do
   #resources :lecturer
 
   get 'lecturer/index'
+end
