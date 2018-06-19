@@ -6,4 +6,20 @@ Rails.application.routes.draw do
   post 'check' => 'users#check'
   
 
+<<<<<<< HEAD
+=======
+  root to: 'login#index'
+
+  get 'users/view'
+
+  get '/company' => 'company#index'
+  get '/lecturer' => 'lecturer#index'
+
+  get 'login/index'
+  post 'login/auth'
+  get 'login/logout'
+  get '/company', controller: 'company', action: 'index'
+
+  get 'lecturer/index'
+>>>>>>> 55770998331d25d25c98a87620ff3ee67cd666bf
 end
