@@ -9,4 +9,7 @@ Rails.application.routes.draw do
   post 'login/auth'
   get 'login/logout'
 
+  #resources :lecturer
+
+  get 'lecturer/index'
 end
