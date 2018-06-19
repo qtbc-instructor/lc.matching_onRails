@@ -1,0 +1,29 @@
+
+
+  <p>
+    スキル:
+    <%= text_field_tag :search, params[:search] %>
+    <%= submit_tag "検索", :name => nil %>
+  </p>
+
+  <table>
+  <thead>
+    <tr>
+      <th>user_id</th>
+      <th>companyname</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @company.each do |company| %>
+      <tr>
+        <td><%= company.user_id %></td>
+        <td><%= company.companyname %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<!-- <div id="main">
+  <%= @company_name %>
+</div> -->
