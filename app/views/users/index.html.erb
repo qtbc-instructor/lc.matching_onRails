@@ -1,0 +1,12 @@
+
+<p>ログインページ</p>
+
+<%= form_tag('/check', method: :post) do %>
+   <%= label_tag("メールアドレス:") %>
+   <%= text_field_tag("mail") %><br>
+   <%= label_tag("パスワード:") %>
+   <%= text_field_tag("password") %><br>
+   <%= submit_tag("ログイン") %>
+<% end %>
+
+<h3>新規登録</h3>
