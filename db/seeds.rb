@@ -27,4 +27,13 @@
 # User.create(id: 5,name: 'yamada',tel: '000-000-0000',mail_address: 'yamada@oo.com',password_digest: 'yamadapass',created_at:'',updated_at: '',usertype: 0)
 
 
+# Status.create(id: 1,user_id:1,company_id:1,skill_master_id: 3,status_master_id: 4,date:"2018-06-19",score:40,created_at:'',updated_at:'')
+# Status.create(id: 1,user_id:1,company_id:2,skill_master_id: 4,status_master_id: 4,date:"2018-06-19",score:60,created_at:'',updated_at:'')
+# Status.create(id: 1,user_id:1,company_id:3,skill_master_id: 5,status_master_id: 4,date:"2018-06-19",score:100,created_at:'',updated_at:'')
+# Status.create(id: 1,user_id:1,company_id:4,skill_master_id: 6,status_master_id: 4,date:"2018-06-19",score:70,created_at:'',updated_at:'')
+# Status.create(id: 1,user_id:1,company_id:5,skill_master_id: 7,status_master_id: 4,date:"2018-06-19",score:30,created_at:'',updated_at:'')
+
+
+
+
 #User.create(id: 1, name: '山田',tel: 000-2222-1111, mail: 'yamada@yama.com' pass: )

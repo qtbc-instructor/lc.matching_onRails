@@ -15,7 +15,7 @@ class UsersController < ApplicationController
     mail = params[:mail]
     password = params[:password]
     
-    @user_mail = User.find_by(password_digest: 'password') 
+    @user_mail = User.where(password_digest: 'password') 
     
   end
 end
