@@ -5,9 +5,10 @@
     <%= text_field_tag :mail_address ,'', size: 20 %>
   </div>
   <div class="field">
-    <%= label_tag :pass, 'パスワード' %><br />
-    <%= password_field_tag :pass, '', size: 20 %>
+    <%= label_tag :password, 'パスワード' %><br />
+    <%= password_field_tag :password, '', size: 20 %>
   </div>
+  <!--ログイン後にリダイレクトすべきアクションを隠しフィールドにセット-->
   <%= hidden_field_tag :referer, flash[:referer] %>
   <%= submit_tag 'ログイン' %>
 <% end %>
