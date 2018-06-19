@@ -6,3 +6,8 @@ Rails.application.routes.draw do
   #resources :lecturer
 
   get 'lecturer/index'
+  #LECTURER ROUTES
+  get 'lecturer/:id' => 'lecturer#index'
+
+
+end
