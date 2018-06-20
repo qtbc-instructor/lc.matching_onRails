@@ -8,11 +8,6 @@
 
 <table border="1" style="float:left">
   <th>登録日</th>
-<% if @freedays.length == 0 then %>
-  <tr>
-    <td>未登録</td>
-  </tr>
-<% end %>
 <% @freedays.each do |f|  %>
   <tr>
     <td> <%= f.begin %>〜<%= f.end %></td>
@@ -20,20 +15,18 @@
 <% end %>
 </table>
 
-<table border="1" >
-  <th>登録日追加</th>
-  <tr>
-    <td> 追加用 </td>
-  </tr>
-</table>
 
-<table border="1" style="clear:left">
-  <th>登録済みスキル</th>
-<% if @skills.length == 0 then %>
-  <tr>
-    <td>未登録</td>
-  </tr>
-<% end %>
+  <table border="1" >
+    <th>登録日追加</th>
+    <tr>
+      <td>  </td>
+    </tr>
+  </table>
+
+
+
+<table border="1">
+  <th>登録スキル</th>
 <% @skills.each do |f|  %>
   <tr>
     <td><%= f.skill_master.skilltype %></td>
