@@ -2,11 +2,11 @@
 
 <!-- 申請中 -->
 <h3>申し込み中</h3>
-  <table>
+  <table border="5" frame="box">
   <thead>
     <tr>
-      <th>user_id</th>
-      <th>skill</th>
+      <th>name</th>
+      <th>skilltype</th>
       <th>date</th>
     </tr>
   </thead>
@@ -14,22 +14,22 @@
   <tbody>
     <% @Applying.each do |applying| %>
       <tr>
-        <td><%= applying.user_id %></td>
-        <td><%= applying.skill_master_id %></td>
+        <td><%= applying.name %></td>
+        <td><%= applying.skilltype %></td>
         <td><%= applying.date %></td>
-        <td><%= link_to '取り消し', company_path, method: :delete %></td>
+        <td><%= link_to '取り消し', company_path, method: :destroy, data: { confirm: 'Are you sure?' } %></td>
       </tr>
     <% end %>
   </tbody>
 </table>
 
 <!-- 承認待ち -->
-<h3>承認待ち</h3>
-<table>
+<h3>承認済み</h3>
+<table border="5" frame="box">
 <thead>
   <tr>
-    <th>user_id</th>
-    <th>skill</th>
+    <th>name</th>
+    <th>skilltype</th>
     <th>date</th>
   </tr>
 </thead>
@@ -37,10 +37,9 @@
 <tbody>
   <% @Approval.each do |approval| %>
     <tr>
-      <td><%= approval.user_id %></td>
-      <td><%= approval.skill_master_id %></td>
+      <td><%= approval.name %></td>
+      <td><%= approval.skilltype %></td>
       <td><%= approval.date %></td>
-      <td><%= link_to '承認', company_path, method: :delete %></td>
     </tr>
   <% end %>
 </tbody>
@@ -49,11 +48,11 @@
 
 <!-- 拒否 -->
 <h3>拒否されました。</h3>
-<table>
+<table border="5" frame="box">
 <thead>
   <tr>
-    <th>user_id</th>
-    <th>skill</th>
+    <th>name</th>
+    <th>skilltype</th>
     <th>date</th>
   </tr>
 </thead>
@@ -61,10 +60,10 @@
 <tbody>
   <% @Denial.each do |denial| %>
     <tr>
-      <td><%= denial.user_id %></td>
-      <td><%= denial.skill_master_id %></td>
+      <td><%= denial.name %></td>
+      <td><%= denial.skilltype %></td>
       <td><%= denial.date %></td>
-      <td><%= link_to '確認', company_path, method: :delete %></td>
+      <td><%= link_to '確認', company_path, method: :destroy, data: { confirm: 'Are you sure?' } %></td>
     </tr>
   <% end %>
 </tbody>
@@ -73,23 +72,26 @@
 
 <!-- 評価待ち -->
 <h3>評価してください。</h3>
-<table>
+<table border="5" frame="box">
 <thead>
   <tr>
-    <th>user_id</th>
-    <th>skill</th>
+    <th>name</th>
+    <th>skilltype</th>
     <th>date</th>
   </tr>
 </thead>
 
 <tbody>
+
   <% @Score.each do |score| %>
     <tr>
-      <td><%= score.user_id %></td>
-      <td><%= score.skill_master_id %></td>
+      <td><%= score.name %></td>
+      <td><%= score.skilltype %></td>
       <td><%= score.date %></td>
-      <td><%= link_to '評価', company_path, method: :delete %></td>
+      <td><%= select_tag 'score', options_for_select(["0", "1", "2", "3", "4", "5"]) %></td>
+      <td><%= link_to '評価する', company_path, method: :update %></td>
     </tr>
   <% end %>
 </tbody>
 </table>
+<%= link_to '検索ページへ', 'search' %>
