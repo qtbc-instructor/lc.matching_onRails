@@ -1,0 +1,20 @@
+
+<%= form_tag({ controller: :company, action: :search },
+      Id: :search_lecturer ) do %>
+    <%= select_tag 'skill', options_from_collection_for_select(
+      @skill_masters, :id, :skilltype, 1) %>
+    <%= date_field('','begin' )%>
+    <%= submit_tag '検索' %>
+<% end %>
+
+
+<%= @users.each do |user| %>
+  <%= check_box :checkbox, id: '' %><br>
+  名前<%= user.name %><br>
+  電話番号<%= user.tel %><br>
+  メールアドレス<%= user.mail_address %><br>
+  空いている日<%= user.begin %><br>
+  スキル<%= user.skilltype %><br>
+<% end %><br>
+
+<td><%= link_to '取り消し', company_path, method: :shinsei, data: { confirm: 'Are you sure?' } %></td>
