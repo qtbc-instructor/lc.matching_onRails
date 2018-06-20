@@ -1,3 +1,4 @@
 class SkillMaster < ApplicationRecord
-  has_one :skill,:status
+  has_many :skill
+  has_many :status
 end
