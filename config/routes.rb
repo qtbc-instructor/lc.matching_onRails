@@ -3,9 +3,9 @@ Rails.application.routes.draw do
 
   #LECTURER ROUTES
   get 'lecturer/:id' => 'lecturer#index'
-  post 'lecturer/newfreeday' => 'lecturer#createfree'
-  post 'lecturer/addskill' => 'lecturer#addskill'
-  get 'lecturer/deletefree'
-  get 'lecturer/deleteskill'
+  post 'lecturer/newfreeday' => 'lecturer#create_free'
+  post 'lecturer/addskill' => 'lecturer#add_skill'
+  post 'lecturer/deletefree' => 'lecturer#delete_free'
+  post'lecturer/deleteskill' => 'lecturer#delete_skill'
 
 end

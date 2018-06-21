@@ -1,31 +1,36 @@
 class LecturerController < ApplicationController
 
-    # before_action :set_user, onry:[:index,:freeday_params]
-
   def index
-    @users = User.find(params[:id])
+    @users = User.find(1)
     @user = @users.id
     @freedays = Freeday.where(user_id: @user)
     @skills = Skill.where(user_id: @user)
     @freeday = Freeday.new
   end
 
-  def createfree
+  def create_free
     @freeday = Freeday.new(freeday_params)
     if @freeday.save
-      render :action => "index" , notice: '日付を登録しました'
+      flash[:notice] = '日付を登録しました'
     else
-      redirect_to :action => "index", notice: '日付を登録できませんでした'
+      flash[:notice] = '日付の登録に失敗しました'
     end
+    redirect_to :action => "index",:id => @freeday.user_id
   end
 
-  def deletefree
-    check_data = params[:id]
-    if Freeday.destroy(check_data)
-      redirect_to '/:id', notice: '日付削除完了'
+  def delete_free
+    @users = User.find(1)
+    @user = @users.id
+    if Freeday.destroy(checked_free)
+      flash[:notice] = '日付を削除しました'
     else
-      redirect_to '/:id', notice: '日付削除失敗'
+      flash[:notice] = '削除に失敗しました'
     end
+    redirect_to :action => "index",:id => @user
+  end
+
+  def checked_free
+    params.require(:freeday_id)
   end
 
   def freeday_params

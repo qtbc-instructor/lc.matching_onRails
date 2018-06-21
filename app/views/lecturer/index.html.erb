@@ -1,5 +1,5 @@
 <h1>講師マイページ</h1>
-<%= notice %>
+<%= flash.now[:notice] %>
 
 <table>
   <tr> <th>講師ID</th> <td><%= @user %></td> </tr>
@@ -13,6 +13,7 @@
       <td>未登録</td>
     </tr>
 <% else %>
+<%= form_tag action: :delete_free do %>
   <% @freedays.each do |f|  %>
     <tr>
       <td>
@@ -21,11 +22,12 @@
       </td>
     </tr>
   <% end %>
-  
+  <%= submit_tag '削除' %>
+ <% end %>
 <% end %>
 </table>
 
-<%= form_for(@freeday, :url => {:action => 'createfree'} ,method: :post) do |f| %>
+<%= form_for(@freeday, :url => {:action => 'create_free'} ,method: :post) do |f| %>
   <div class="field">
     <%= f.hidden_field :user_id, :value => @user %>
     <%= f.label :begin %>
