@@ -1,7 +1,7 @@
 class LecturerController < ApplicationController
 
   def index
-    @users = User.find(12)
+    @users = User.find(1)
     @user = @users.id
     @freedays = Freeday.where(user_id: @user)
     @skills = Skill.where(user_id: @user)
@@ -28,10 +28,6 @@ class LecturerController < ApplicationController
   def delete_free
     if false then
       flash[:notice] = '登録日が選択されていません'
-    @users = User.find(12)
-    @user = @users.id
-    if Freeday.destroy(checked_free)
-      flash[:notice] = '日付を削除しました'
     else
       days = params.require(:freeday_id)
       if Freeday.destroy(days) then
