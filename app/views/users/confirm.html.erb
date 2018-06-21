@@ -1,0 +1,56 @@
+<!--
+  確認画面
+  ・入力フォーム画面での値を表示
+  ・この画面の前にバリデーションチェック済み
+  ・戻るボタンはnewページ(値は保持したまま)
+  ・登録ボタンでDBに保存
+-->
+
+<%= form_for (@user) do |f| %>
+  <div class="field">
+    name: <%= @user.name %>
+    <%= f.hidden_field :name %>
+  </div>
+
+<!-- usertype=1の時に表示(企業名)-->
+  <% if @user.usertype == 1 %>
+    <%= f.fields_for :company  do |cf| %>
+      <div class='field'>
+        companyname: <%= @user.company.companyname %>
+        <%= cf.hidden_field :companyname %>
+      </div>
+    <% end %>
+  <% end %>
+
+
+  <div class="field">
+    tel: <%= @user.tel %>
+    <%= f.hidden_field :tel %>
+  </div>
+
+  <div class="field">
+    mail: <%= @user.mail_address %>
+    <%= f.hidden_field :mail_address %>
+  </div>
+
+  <div class="field">
+    password: <%= @user.password %>
+    <%= f.hidden_field :password %>
+  </div>
+
+  <div class="field">
+    <%= f.hidden_field :usertype , :value => @user.usertype %>
+  </div>
+
+  <div class="actions">
+    <%= f.submit '登録' %>
+  </div>
+
+<!--
+  <div class="actions">
+    <%= f.submit '戻る' , name: 'back' %>
+  </div>
+-->
+<% end %>
+
+<%#= link_to '戻る', new_user_path %>

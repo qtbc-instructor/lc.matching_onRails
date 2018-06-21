@@ -1,0 +1,44 @@
+
+<!--入力フォームの描画(userテーブルに基づく入力値)-->
+<%= form_for user , url: {action: 'confirm'} do |f| %>
+  <!--エラー表示-->
+
+  <!--入力フォーム-->
+  <div class='field'>
+    <%= f.label :name %>
+    <%= f.text_field :name %>
+  </div>
+
+  <!--usertype=1の時表示(企業名入力フォーム)-->
+  <% if @user.usertype == 1 %>
+    <%= f.fields_for :company do |cf| %>
+      <div class='field'>
+        <%= cf.label :companyname %>
+        <%= cf.text_field :companyname %>
+      </div>
+    <% end %>
+  <% end %>
+
+  <div class='field'>
+    <%= f.label :tel %>
+    <%= f.text_field :tel %>
+  </div>
+
+  <div class='field'>
+    <%= f.label :mail_address %>
+    <%= f.text_field :mail_address %>
+  </div>
+
+  <div class='field'>
+    <%= f.label :password %>
+    <%= f.password_field :password %>
+  </div>
+
+  <div class="field">
+    <%= f.hidden_field :usertype , :value => @user.usertype %>
+  </div>
+
+  <div class='actions'>
+    <%= f.submit '確認'%>
+  </div>
+<% end %>

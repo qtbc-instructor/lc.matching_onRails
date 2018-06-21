@@ -1,0 +1,11 @@
+
+データがとってこれているかテストするためのviewです。本番はアラートを出すのでこのviewはありません。<br>
+
+<%= @users.each do |user| %>
+  ユーザーID<%= user.id %><br>
+  カンパニーID<%= user.company_id %><br>
+  スキルマスターID<%= user.skill_master_id %><br>
+  ステータスマスターID<%= user.status_master_id %><br>
+  日付<%= user.date %><br>
+  スコア<%= user.score %><br>
+<% end %><br>
