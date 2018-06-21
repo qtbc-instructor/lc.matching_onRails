@@ -1,24 +1,29 @@
 class CompanyController < ApplicationController
   def index
-    @Applying = Status.joins(:user, :skill_master).select('users.name, skill_masters.skilltype, statuses.date').where("status_master_id = ?", 1)
+    @Applying = Status.joins(:user, :skill_master).select('statuses.id, users.name, skill_masters.skilltype, statuses.date').where("status_master_id = ?", 1)
     @Approval = Status.joins(:user, :skill_master).select('users.name, skill_masters.skilltype, statuses.date').where("status_master_id = ?", 2)
-    @Denial = Status.joins(:user, :skill_master).select('users.name, skill_masters.skilltype, statuses.date').where("status_master_id = ?", 3)
-    @Score = Status.joins(:user, :skill_master).select('users.name, skill_masters.skilltype, statuses.date').where("status_master_id = ?", 4)
+    @Denial = Status.joins(:user, :skill_master).select('statuses.id, users.name, skill_masters.skilltype, statuses.date').where("status_master_id = ?", 3)
+    @Score = Status.joins(:user, :skill_master).select('statuses.id, users.name, skill_masters.skilltype, statuses.date').where("status_master_id = ?", 4)
   end
 
   def destroy
-    @status.destroy
+    @Applying = Status.find(params[:id])
+    @Denial = Status.find(params[:id])
+    @Applying.destroy
+    @Denial.destroy
+    redirect_to :company
+
+    # とりあえず残す
+    # status = Status.find(params[:id])
+    # status.all = Status.find_by_all
+    # status.destroy
+    # redirect_to company_path
 
     # destroyをクラスメソッドとして呼び出し
-     Satus.destroy(params[:id])
+     # Satus.destroy(params[:id])
 
     # deleteメソッド
     #Book.delete(params[:id])
-    
-    respond_to do |format|
-      format.html { redirect_to books_url, notice: 'Book was successfully destroyed.' }
-      format.json { head :no_content }
-    end
   end
 
   # def update
@@ -28,8 +33,8 @@ class CompanyController < ApplicationController
   # end
 
   def update
-    status = Status.find(:id)
-    status.score = params[:score]
+    status = Status.find(params[:id])
+    status.score = Status.find_by(score: params[:score])
     status.save
   end
 

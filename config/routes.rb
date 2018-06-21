@@ -12,8 +12,8 @@ Rails.application.routes.draw do
 
   #resources :companies
   get '/company', controller: 'company', action: 'index'
-  delete '/company/:id', controller: 'company', action: 'destroy'
-  put '/company/:id', controller: 'company', action: 'update'
+  delete '/company/destroy/:id', controller: 'company', action: 'destroy'
+  put '/company/update', controller: 'company', action: 'update'
   get '/company/search',controller: 'company', action: 'search'
 
   #resources :lecturer
