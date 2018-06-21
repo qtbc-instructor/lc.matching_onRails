@@ -9,22 +9,27 @@ Rails.application.routes.draw do
   get 'login/index'
   post 'login/auth'
   get 'login/logout'
+
+  #resources :companies
   get '/company', controller: 'company', action: 'index'
   get '/company/search', controller: 'company', action: 'search'
   post '/company/search', controller: 'company', action: 'search'
   post '/company/result', controller: 'company', action: 'result'
 
 
+  delete '/company/destroy/:id', controller: 'company', action: 'destroy'
+  put '/company/update', controller: 'company', action: 'update'
+  get '/company/search',controller: 'company', action: 'search'
 
 
   #resources :lecturer
 
   get 'lecturer/index'
-<<<<<<< HEAD
+
   #LECTURER ROUTES
   get 'lecturer/:id' => 'lecturer#index'
 
+  #LECTURER ROUTES
+  get 'lecturer/:id' => 'lecturer#index'
 
-=======
->>>>>>> origin/company
 end

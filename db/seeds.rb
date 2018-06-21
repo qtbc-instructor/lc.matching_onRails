@@ -20,4 +20,4 @@ SkillMaster.create(id: 5, skilltype: 'HTML')
 SkillMaster.create(id: 6, skilltype: 'CSS')
 SkillMaster.create(id: 7, skilltype: 'JavaSclipt')
 
-#User.create(id: 1, name: '山田',tel: 000-2222-1111, mail: 'yamada@yama.com' pass: )
+User.create(id: 1, name: '山田',tel: 000-2222-1111, mail: 'yamada@yama.com' pass: )
