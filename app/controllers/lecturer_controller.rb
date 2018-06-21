@@ -26,8 +26,7 @@ class LecturerController < ApplicationController
   end
 
   def delete_free
-
-    if false then
+    if !params(:freeday_id).present? then
       flash[:notice] = '登録日が選択されていません'
     else
       days = params.require(:freeday_id)
