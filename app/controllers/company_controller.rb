@@ -31,7 +31,6 @@ class CompanyController < ApplicationController
   #   user.save
   #   render :json => user
   # end
-  #test
 
   def update
     status = Status.find(params[:id])
