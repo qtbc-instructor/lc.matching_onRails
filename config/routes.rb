@@ -3,7 +3,9 @@ Rails.application.routes.draw do
 
   root to: 'login#index'
 
-  get 'users/view'
+  resources :users
+
+  post 'users/confirm'
 
   get '/company' => 'company#index'
   get '/lecturer' => 'lecturer#index'
@@ -11,7 +13,7 @@ Rails.application.routes.draw do
   get 'login/index'
   post 'login/auth'
   get 'login/logout'
-  get '/company', controller: 'company', action: 'index'
+#  get '/company', controller: 'company', action: 'index'
 
   get 'lecturer/index'
 end

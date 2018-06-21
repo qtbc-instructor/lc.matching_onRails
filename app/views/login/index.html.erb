@@ -12,3 +12,10 @@
   <%= hidden_field_tag :referer, flash[:referer] %>
   <%= submit_tag 'ログイン' %>
 <% end %>
+
+<!--新規登録フォーム-->
+<div>
+  新規登録はコチラ
+  <%= link_to '講師用' , controller: "users", action: "new", usertype: 0 %>
+  <%= link_to '企業用' , controller: "users", action: "new",  usertype: 1 %>
+</div>
