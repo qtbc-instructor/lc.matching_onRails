@@ -9,32 +9,37 @@ class LecturerController < ApplicationController
   end
 
   def create_free
-    @freeday = Freeday.new(freeday_params)
-    if @freeday.save
-      flash[:notice] = '日付を登録しました'
+    freeday_params = params.require(:freeday).permit(:user_id,:begin,:end)
+    freeday = Freeday.new(freeday_params)
+    if !freeday.begin.present? || !freeday.end.present? then
+      flash[:notice] = '日付を入力してください'
+    elsif freeday.begin < freeday.end then
+      if freeday.save then
+        flash[:notice] = '日付を登録しました'
+      else
+        flash[:notice] = '日付の登録に失敗しました'
+      end
     else
-      flash[:notice] = '日付の登録に失敗しました'
+      flash[:notice] = '初日〜最終日で入力してください'
     end
-    redirect_to :action => "index",:id => @freeday.user_id
+    redirect_to :action => "index",:id => freeday.user_id
   end
 
   def delete_free
+
+    if false then
+      flash[:notice] = '登録日が選択されていません'
+    else
+      days = params.require(:freeday_id)
+      if Freeday.destroy(days) then
+        flash[:notice] = '日付を削除しました'
+      else
+        flash[:notice] = '削除に失敗しました'
+      end
+    end
     @users = User.find(1)
     @user = @users.id
-    if Freeday.destroy(checked_free)
-      flash[:notice] = '日付を削除しました'
-    else
-      flash[:notice] = '削除に失敗しました'
-    end
     redirect_to :action => "index",:id => @user
-  end
-
-  def checked_free
-    params.require(:freeday_id)
-  end
-
-  def freeday_params
-    params.require(:freeday).permit(:user_id,:begin,:end)
   end
 
   def set_user
