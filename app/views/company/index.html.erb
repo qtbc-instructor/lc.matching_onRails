@@ -5,19 +5,19 @@
   <table border="5" frame="box">
   <thead>
     <tr>
-      <th>name</th>
-      <th>skilltype</th>
-      <th>date</th>
+      <th>名前</th>
+      <th>スキル名</th>
+      <th>日付</th>
     </tr>
   </thead>
 
   <tbody>
-    <% @Applying.each do |applying| %>
+    <% @Applyings.each do |applying| %>
       <tr>
         <td><%= applying.name %></td>
         <td><%= applying.skilltype %></td>
         <td><%= applying.date %></td>
-        <td><%= link_to '取り消し', company_path(applying.id), method: :destroy, data: { confirm: '取り消していいですか?' } %></td>
+        <td><%= link_to '取り消し', company_path(applying.id), method: :delete, data: { confirm: '取り消していいですか?' } %></td>
       </tr>
     <% end %>
   </tbody>
@@ -28,9 +28,9 @@
 <table border="5" frame="box">
 <thead>
   <tr>
-    <th>name</th>
-    <th>skilltype</th>
-    <th>date</th>
+    <th>名前</th>
+    <th>スキル名</th>
+    <th>日付</th>
   </tr>
 </thead>
 
@@ -51,9 +51,9 @@
 <table border="5" frame="box">
 <thead>
   <tr>
-    <th>name</th>
-    <th>skilltype</th>
-    <th>date</th>
+    <th>名前</th>
+    <th>スキル名</th>
+    <th>日付</th>
   </tr>
 </thead>
 
@@ -75,9 +75,9 @@
 <table border="5" frame="box">
 <thead>
   <tr>
-    <th>name</th>
-    <th>skilltype</th>
-    <th>date</th>
+    <th>名前</th>
+    <th>スキル名</th>
+    <th>日付</th>
   </tr>
 </thead>
 
@@ -96,5 +96,4 @@
   <% end %>
 </tbody>
 </table>
-
-<%= link_to '検索ページへ', 'search' %>
+<%= link_to '検索ページへ', 'company/search' %>
