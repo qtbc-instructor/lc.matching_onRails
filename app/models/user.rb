@@ -1,6 +1,5 @@
 
 class User < ApplicationRecord
-<<<<<<< HEAD
 
   has_one :company
   has_one :status
