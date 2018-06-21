@@ -4,6 +4,8 @@ Rails.application.routes.draw do
   get '/company', controller: 'company', action: 'index'
   get '/company/search', controller: 'company', action: 'search'
   post '/company/search', controller: 'company', action: 'search'
+  post '/company/result', controller: 'company', action: 'result'
+
 
 
 

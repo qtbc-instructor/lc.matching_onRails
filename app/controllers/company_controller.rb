@@ -33,8 +33,39 @@ class CompanyController < ApplicationController
     .where(freedays: {begin: @search_freeday})
   end
 
-  def shinsei
-    render :action => 'search'
+  def result
+    @search_userid = params[:id]
+=begin
+    @users = User.joins(:freeday,:company, skill: :skill_master)
+     .select('users.*,freedays.*,skills.*,skill_masters.*,companies.*')
+    @users = @users
+    .where(id: @search_userid)
+=end
+@users = User.joins(:freeday,company: :status,skill: :skill_master)
+ .select('users.*,freedays.*,companies.*,statuses.*,skills.*,skill_masters.*')
+ .where(id: @search_userid)
+
+
+
+  @status = Status.new(status_params)
+
+  # status_params[:id] = 1
+  # status_params[:company_id] = 1
+  # status_params[:skill_master_id] = 1
+  # status_params[:status_master_id] = 1
+  # status_params[:date] = 1
+  # status_params[:score] = 1
+
+
+  #   if @status.save
+  #     render :action => "index" , notice: '講師に申請しました'
+  #   else
+  #     redirect_to :action => "search", notice: '講師に申請できませんでした'
+  #   end
+  end
+
+  def status_params
+    # params.require(:status).permit(:user_id,:company_id,:skill_master_id,:status_master_id,:date,:score)
   end
 
 end
