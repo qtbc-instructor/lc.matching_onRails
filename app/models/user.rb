@@ -1,4 +1,6 @@
+
 class User < ApplicationRecord
+<<<<<<< HEAD
 
   has_one :company
   has_one :status
@@ -15,4 +17,5 @@ class User < ApplicationRecord
   validates :tel , format: {with: /\A\d{1,4}-\d{1,4}-\d{3,4}\z/}
   validates :mail_address , format: {with: /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/ }
   validates :password , length: {minimum: 6 , maximum: 12}
+  has_one :user
 end
