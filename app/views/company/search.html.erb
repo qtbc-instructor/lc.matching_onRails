@@ -7,6 +7,10 @@
     <%= submit_tag '検索' %>
 <% end %>
 
+<%= @search_skill %>
+<%= @date %>
+
+
 <%= @users.each do |user| %>
   <%= check_box :checkbox, id: '' , :as => :boolean %><br>
   名前<%= user.name %><br>
@@ -14,6 +18,5 @@
   メールアドレス<%= user.mail_address %><br>
   空いている日<%= user.begin %><br>
   スキル<%= user.skilltype %><br>
+  <%= link_to 'チェックした講師に申請する', company_result_path(id:user_id), method: :shinsei, data: { confirm: 'Are you sure?' } %>
 <% end %><br>
-
-<%= link_to 'チェックした講師に申請する', company_result_path(id:1), method: :shinsei, data: { confirm: 'Are you sure?' } %>
