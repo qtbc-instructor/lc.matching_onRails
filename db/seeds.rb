@@ -7,18 +7,18 @@
 #   Character.create(name: 'Luke', movie: movies.first)
 
 #user テーブル
-# User.create(id: 1,name: 'kawabata',tel: '000-000-0000',mail_address: 'kawabata@oo.com',password_digest: 'kawapass',created_at:'',updated_at: '',usertype: 0)
-# User.create(id: 2,name: 'nagai',tel: '000-000-0000',mail_address: 'nagai@oo.com',password_digest: 'nagaipass',created_at:'',updated_at: '',usertype: 0)
-# User.create(id: 3,name: 'kawamoto',tel: '000-000-0000',mail_address: 'kawamoto@oo.com',password_digest: 'kawamotopass',created_at:'',updated_at: '',usertype: 0)
-# User.create(id: 4,name: 'gotou',tel: '000-000-0000',mail_address: 'gotou@oo.com',password_digest: 'gotoupass',created_at:'',updated_at: '',usertype: 0)
-# User.create(id: 5,name: 'yamada',tel: '000-000-0000',mail_address: 'yamada@oo.com',password_digest: 'yamadapass',created_at:'',updated_at: '',usertype: 0)
+# User.create(id: 1,name: 'kawabata',tel: '000-000-0000',mail_address: 'kawabata@oo.com',password: 'kawapass',created_at:'',updated_at: '',usertype: 0)
+# User.create(id: 2,name: 'nagai',tel: '000-000-0000',mail_address: 'nagai@oo.com',password: 'nagaipass',created_at:'',updated_at: '',usertype: 0)
+# User.create(id: 3,name: 'kawamoto',tel: '000-000-0000',mail_address: 'kawamoto@oo.com',password: 'kawamotopass',created_at:'',updated_at: '',usertype: 0)
+# User.create(id: 4,name: 'gotou',tel: '000-000-0000',mail_address: 'gotou@oo.com',password: 'gotoupass',created_at:'',updated_at: '',usertype: 0)
+# User.create(id: 5,name: 'yamada',tel: '000-000-0000',mail_address: 'yamada@oo.com',password: 'yamadapass',created_at:'',updated_at: '',usertype: 0)
 
 # Company テーブル
-Company.create(user_id: 1,companyname: 'フロイデ商店',created_at: '',updated_at: '')
-Company.create(user_id: 2,companyname: '川元商店',created_at: '',updated_at: '')
-Company.create(user_id: 3,companyname: '川端商店',created_at: '',updated_at: '')
-Company.create(user_id: 4,companyname: '永井商店',created_at: '',updated_at: '')
-Company.create(user_id: 5,companyname: '後藤商店',created_at: '',updated_at: '')
+# Company.create(user_id: 1,companyname: 'フロイデ商店',created_at: '',updated_at: '')
+# Company.create(user_id: 2,companyname: '川元商店',created_at: '',updated_at: '')
+# Company.create(user_id: 3,companyname: '川端商店',created_at: '',updated_at: '')
+# Company.create(user_id: 4,companyname: '永井商店',created_at: '',updated_at: '')
+# Company.create(user_id: 5,companyname: '後藤商店',created_at: '',updated_at: '')
 
 # Skill テーブル
 # Skill.create(user_id: 1,skill_master_id: 1,created_at: '',updated_at: '')
@@ -37,11 +37,11 @@ Company.create(user_id: 5,companyname: '後藤商店',created_at: '',updated_at:
 # SkillMaster.create(id: 7, skilltype: 'JavaSclipt')
 
 # Status テーブル
-Status.create(id: 1,user_id:1,company_id:1,skill_master_id: 3,status_master_id: 4,date:'2018-06-19',score:40,created_at:'',updated_at:'')
-Status.create(id: 2,user_id:1,company_id:2,skill_master_id: 4,status_master_id: 4,date:'2018-06-19',score:60,created_at:'',updated_at:'')
-Status.create(id: 3,user_id:1,company_id:3,skill_master_id: 5,status_master_id: 4,date:'2018-06-19',score:100,created_at:'',updated_at:'')
-Status.create(id: 4,user_id:1,company_id:4,skill_master_id: 6,status_master_id: 4,date:'2018-06-19',score:70,created_at:'',updated_at:'')
-Status.create(id: 5,user_id:1,company_id:5,skill_master_id: 7,status_master_id: 4,date:'2018-06-19',score:30,created_at:'',updated_at:'')
+# Status.create(id: 1,user_id:1,company_id:1,skill_master_id: 3,status_master_id: 1,date:'2018-06-19',score:40,created_at:'',updated_at:'')
+# Status.create(id: 2,user_id:1,company_id:2,skill_master_id: 4,status_master_id: 1,date:'2018-06-19',score:60,created_at:'',updated_at:'')
+# Status.create(id: 3,user_id:1,company_id:3,skill_master_id: 5,status_master_id: 1,date:'2018-06-19',score:100,created_at:'',updated_at:'')
+# Status.create(id: 4,user_id:1,company_id:4,skill_master_id: 6,status_master_id: 1,date:'2018-06-19',score:70,created_at:'',updated_at:'')
+# Status.create(id: 5,user_id:1,company_id:5,skill_master_id: 7,status_master_id: 1,date:'2018-06-19',score:30,created_at:'',updated_at:'')
 
 # StatusMaster テーブル
 # StatusMaster.create(id: 1, state: '申請')
