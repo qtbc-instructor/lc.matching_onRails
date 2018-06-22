@@ -1,5 +1,8 @@
 class CompanyController < ApplicationController
 
+
+# 評価の平均を講師の横にだす
+
   before_action :set_book, only: [:show, :edit, :update, :destroy]
 
   # GET /books
@@ -47,99 +50,68 @@ class CompanyController < ApplicationController
   end
 
   def search
-  @skill_masters = SkillMaster.all
-    #@freedays = Freeday.all
-    # @search_freeday_change_string = params[:begin].to_s
-    # @search_freeday_delete_haihun = @search_freeday_change_string.delete!('-')
-    # @search_freeday = @search_freeday_delete_haihun.to_i
-  @search_skill = params[:skill]
-  @date = params[:begin]
+    #Viewで検索条件表示に使用
+    @skill_masters = SkillMaster.all
 
+    #検索条件を設定
+    @search_skill = params[:skill]
+    @date = params[:begin]
 
-  @users = User.joins(:freeday, skill: :skill_master)
-   .select('users.*,freedays.*,skills.*,skill_masters.*')
-  @users = @users
-  .where( skills: {skill_master_id: @search_skill})
-  .where(freedays: {begin: @date})
+    #検索実行
+    @users = User.joins(:freeday, skill: :skill_master)
+     .select('users.*,freedays.begin,freedays.end,skill_masters.skilltype')
+    .where( skills: {skill_master_id: @search_skill})
+    .where(freedays: {begin: @date})
 
-    # @search_skill = params[:skill]
-    # @mozi = params[:begin].to_s
-    # @date = DateTime.parse(params[:begin])
-    #
-    # @users = User.joins(:freeday, company: :status, skill: :skill_master)
-    #  .select('users.*,freedays.*,skills.*,skill_masters.*,companies.*,statuses.*')
-    # @users = @users
-    # .where(skills: {skill_master_id: @search_skill})
+    # @users = User.joins(:freeday, skill: {skill_master: :status})
+    #  .select('users.*,freedays.begin,skill_masters.skilltype,statuses.score,statuses.status_master_id')
+    # .where( skills: {skill_master_id: @search_skill})
     # .where(freedays: {begin: @date})
+    # .where(freedays: {begin: @date})
+    # .where(statuses: {status_master_id: nil})
+
+
+    @score = Status.select('id,user_id,skill_master_id,date,score')
+      .where(user_id: 2)
+      .where(date: @date)
+      .where(skill_master_id: @search_skill)
+
+      @score.each do |id|
+        @name = id.id
+        if @name.present? then
+
+        else
+          @total = 0
+          @total += id.score
+        end
+      end
+
+    @hyouka = User.select('name').where(id: @name)
   end
 
   def result
     @search_userid = params[:id]
-    # @search_userid = 2
 
-=begin
-    @users = User.joins(:freeday,:company, skill: :skill_master)
-     .select('users.*,freedays.*,skills.*,skill_masters.*,companies.*')
-    @users = @users
-    .where(id: @search_userid)
-=end
+    @users = User.joins(:freeday, skill: :skill_master)
+     .select('users.*,freedays.*,skills.*,skill_masters.*')
+     .where(id: @search_userid)
 
+    @users.each do |user|
+     @status = Status.new()
+     @status.user_id = @search_userid
+     @status.company_id = @usr.id
+     @status.skill_master_id = user.skill_master_id
+     @status.status_master_id = 1
+     @status.date = user.begin
+     @status.score = ''
+    end
 
-# companyテーブルに何もないと保存できない
-# 新規登録のとき講師と会社を紐付けしないと、statusテーブルが結合できない
-# 新規登録の時に講師にひもづく担当者が必要
-
-@users = User.joins(:freeday, skill: :skill_master)
- .select('users.*,freedays.*,skills.*,skill_masters.*')
- .where(id: @search_userid)
-
- # @users.each do |user|
-
-   # @userdate = user.begin
-   # @userdate = @userdate.to_s
-   # @userdate = @userdate.delete!('-')
-   # @userdate = @userdate.to_i
-
-   # @status = Status.new()
-   #
-   # @status.user_id = user.id
-   # @status.company_id = 1
-   # @status.skill_master_id = user.skill_master_id
-   # @status.status_master_id = 0
-   # @status.date = user.begin
-   # @status.score = ''
-
- # end
- # if @status.save
- #   redirect_to :action => "index" , flash: '講師に申請しました'
- # else
- #   redirect_to :action => "search", flash: '講師に申請できませんでした'
- # end
-
-
-
-
-
-  # @status = Status.new()
-  #
-  #
-  # @status.user_id = @users.id
-  # @status.company_id = @users.company_id
-  # @status.skill_master_id = @users.skill_masater_id
-  # @status.status_master_id = 0
-  # @status.date = @users.begin
-  # @status.score = '未定'
-  #
-  #
-  #   if @status.save
-  #     redirect_to :action => "index" , flash: '講師に申請しました'
-  #   else
-  #     redirect_to :action => "search", flash: '講師に申請できませんでした'
-  #   end
+    if @status.save
+     flash[:notice] = "講師に申請しました。"
+     redirect_to :action => "index"
+    else
+     flash[:notice] = "講師に申請できませんでした。"
+     redirect_to :action => "search"
+    end
   end
-
-  def status_params
-    # params.require(:status).permit(:user_id,:company_id,:skill_master_id,:status_master_id,:date,:score)
-  end
-
 end
