@@ -4,14 +4,13 @@ class LecturerController < ApplicationController
     @users = User.find(session[:usr])
     @user = @users.id
     
-    #@status_master = Status.find(status_master_id: @user)
+    #@company_name = Company.find_by(user_id: @user)
     
-    # if @status_master == 1 then
-    #   @companys = Company.where(user_id: @status_master)
-    #   @date = Status.where(user_id: @status_master)
-    # end
-    
-    
+    @user_status = Status.find_by(user_id: @user)
+    if @user_status.status_master_id == 1 then
+      @company_name = Company.find_by(user_id: @user)
+    end
+      
     @freedays = Freeday.where(user_id: @user)
     @skills = Skill.where(user_id: @user)
     

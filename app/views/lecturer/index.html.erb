@@ -31,4 +31,23 @@
   <% end %>
 </table>
 
-<%= debug(@users) %>
+<br>
+<% if !@company_name.nil? then %>
+  <h4>通知</h4>
+  <table border="1">
+    <tr>
+      <td>会社名</td>
+      <td>スキル</td>
+      <td>日付</td>
+    </tr>
+    <tr>
+      <td><%= @company_name.companyname %></td>
+      <% @skills.each do |f|  %>
+        <td><%= f.skill_master.skilltype %></td>
+      <% end %>
+      <td><%= @user_status.date %></td>
+    </tr>
+  </table>
+<% end %>
+  
+
