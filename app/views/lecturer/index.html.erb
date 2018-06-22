@@ -10,11 +10,11 @@
 <table>
   <tr> <th align='left'>講師ID</th> <td><%= @usr.id %></td> </tr>
   <tr> <th align='left'>講師名</th> <td><%= @usr.name %></td> </tr>
-  <tr> <th align='left'>平均評価</th> <td><%= @status.average(:score) %></td> </tr>
+  <tr> <th align='left'>平均評価</th> <td><%= @score.average(:score)  %></td> </tr>
 </table>
 
 <!-- 期間登録 -->
-<%= form_for(@freeday, :url => {:action => 'create_free'} ,method: :post) do |f| %>
+<%= form_for(@newfreeday, :url => {:action => 'create_free'} ,method: :post) do |f| %>
   <%= f.hidden_field :user_id, :value => @usr.id %>
   <%= f.date_field :begin  %> 〜 <%= f.date_field :end  %>
   <%= f.submit '期間登録' %>

@@ -2,14 +2,14 @@ class LecturerController < ApplicationController
 
   def index
     @freedays = Freeday.where(user_id: @usr)
-    @skills = Skill.where(user_id: @usr)
-    addskill=[]
+    @newfreeday = Freeday.new
+    @skills = Skill.where(user_id: @usr).order(:skill_master_id)
+    skill_ids=[]
     @skills.each do |f|
-      addskill.push(f.skill_master_id)
+      skill_ids.push(f.skill_master_id)
     end
-    @addskills = SkillMaster.where.not(id: addskill)
-    @freeday = Freeday.new
-    @status = Status.where(user_id: @usr.id, status_master_id: 5)
+    @addskills = SkillMaster.where.not(id: skill_ids)
+    @score = Status.select("score").where(user_id: @usr.id, status_master_id: 5)
   end
 
   def create_free
@@ -71,7 +71,5 @@ class LecturerController < ApplicationController
     end
     redirect_to :action => "index"
   end
-
-
 
 end
