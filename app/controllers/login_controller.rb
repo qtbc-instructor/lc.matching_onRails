@@ -5,7 +5,7 @@ class LoginController < ApplicationController
   #ログイン画面(View呼び出し)
   #------------------------------------
   def index
-    # reset_session
+     # reset_session
   end
 
   #-------------------------------------------

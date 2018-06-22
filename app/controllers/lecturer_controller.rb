@@ -1,7 +1,8 @@
 class LecturerController < ApplicationController
 
   def index
-    @users = User.find(12)
+    # @users = User.find(12)
+    @users = @usr
     @user = @users.id
     @freedays = Freeday.where(user_id: @user)
     @skills = Skill.where(user_id: @user)
@@ -19,7 +20,8 @@ class LecturerController < ApplicationController
   end
 
   def delete_free
-    @users = User.find(12)
+    @users = @usr
+    # @users = User.find(12)
     @user = @users.id
     if Freeday.destroy(checked_free)
       flash[:notice] = '日付を削除しました'

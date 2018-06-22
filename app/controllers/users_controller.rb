@@ -27,21 +27,24 @@ class UsersController < ApplicationController
     #入力値によるモデルの再構築
     @user = User.new(user_params)
 
-    #name: 'back'がきたら、:newに行く
-    if params[:name] then
-      render :new
+    #name:'back'がきたら、:newに行く
+    if params[:back] == '戻る' then
+      render :action => :new
+      return
     end
     #データの保存と結果に対する処理を分岐する
       if @user.save then
         #成功したら、ログイン画面にメッセージ
-        redirect_to '/', notice: '新規登録完了しました!'
+
+        redirect_to controller: :login, action: :index,falsh:"New user!!"
+        # flash[:notice] = '新規登録完了しました!'
       else
         #失敗したら、登録フォームを再描画
         logger.debug "=============="
         logger.debug @user.errors.to_json
         logger.debug "=============="
         logger.debug @user.to_json
-        render :new
+        render :action => :new
       end
   end
 
@@ -52,10 +55,9 @@ class UsersController < ApplicationController
     @user = User.new(user_params)
     logger.debug "====================================="
     logger.debug @user.company.to_json
-
     logger.debug "====================================="
-    #バリデーション
 
+    #バリデーション
     return if @user.valid?
     #失敗したらnewへ遷移
     render :new

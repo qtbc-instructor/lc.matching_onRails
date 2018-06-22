@@ -1,4 +1,12 @@
+
+<!-- <% flash.each do |key, value| %>
+  <%= content_tag(:div, value, class: "#{key}") %>
+<% end %> -->
+<!-- count=<%= flash.count %> -->
+<!-- <p>abc<%= flash[:msg] %></p> -->
+
 <p style="color: Red"><%= @error %></p>
+
 <%= form_tag action: :auth do %>
   <div class="field">
     <%= label_tag :mail_address, 'メールアドレス' %><br />
@@ -17,5 +25,5 @@
 <div>
   新規登録はコチラ
   <%= link_to '講師用' , controller: "users", action: "new", usertype: 0 %>
-  <%= link_to '企業用' , controller: "users", action: "new",  usertype: 1 %>
+  <%= link_to '企業用' , controller: "users", action: "new", usertype: 1 %>
 </div>
