@@ -32,22 +32,58 @@
 </table>
 
 <br>
-<% if !@company_name.nil? then %>
-  <h4>通知</h4>
+<% if !@application.nil? then %>
+  <h3>通知</h3>
   <table border="1">
     <tr>
       <td>会社名</td>
       <td>スキル</td>
       <td>日付</td>
     </tr>
+    <%= form_for(@user_status) do |f| %>
+      <tr>
+        <td><%= f.radio_button :selected,'申請' %>申請</td>
+        <td><%= f.radio_button :selected,'承認' %>承認</td>
+      </tr>
     <tr>
-      <td><%= @company_name.companyname %></td>
+      <td><%= f.companyname %></td>
       <% @skills.each do |f|  %>
         <td><%= f.skill_master.skilltype %></td>
       <% end %>
-      <td><%= @user_status.date %></td>
+      <td><%= f.date %></td>
     </tr>
+    <% end %>
   </table>
+
+  <%= button_to('認証する', '/lecturer/update',
+    method: "post", remote: true, data: { confirm: '認証しますか？', disable_with: 'loading...' }) %>
 <% end %>
+
+<%= debug @user_status %>
+
+<% if !@company_name.nil? then %>
+  <h3>予定</h3>
+  <table border="1">
+    <tr>
+      <td>会社名</td>
+      <td>スキル</td>
+      <td>日付</td>
+    </tr>
   
+<% end %>
+  </table>
+<!-- 
+<h3>予定</h3>
+<table border="1">
+  <tr>
+    <td></td>
+    <td></td>
+    <td></td>
+  </tr>
+  <tr>
+    <td></td>
+    <td></td>
+    <td></td>
+  </tr>
+</table> -->
 

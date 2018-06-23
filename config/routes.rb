@@ -12,6 +12,7 @@ Rails.application.routes.draw do
 
   get '/company' => 'company#index'
   get '/lecturer' => 'lecturer#index'
+  post '/lecturer/update' => 'lecturer#update'
 
   get 'login/index'
   post 'login/auth'

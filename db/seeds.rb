@@ -38,10 +38,15 @@
 
 # Status テーブル
 # Status.create(id: 1,user_id:1,company_id:1,skill_master_id: 3,status_master_id: 1,date:'2018-06-19',score:40,created_at:'',updated_at:'')
-# Status.create(id: 2,user_id:1,company_id:2,skill_master_id: 4,status_master_id: 1,date:'2018-06-19',score:60,created_at:'',updated_at:'')
-# Status.create(id: 3,user_id:1,company_id:3,skill_master_id: 5,status_master_id: 1,date:'2018-06-19',score:100,created_at:'',updated_at:'')
-# Status.create(id: 4,user_id:1,company_id:4,skill_master_id: 6,status_master_id: 1,date:'2018-06-19',score:70,created_at:'',updated_at:'')
-# Status.create(id: 5,user_id:1,company_id:5,skill_master_id: 7,status_master_id: 1,date:'2018-06-19',score:30,created_at:'',updated_at:'')
+# Status.create(id: 2,user_id:1,company_id:1,skill_master_id: 4,status_master_id: 1,date:'2018-06-19',score:60,created_at:'',updated_at:'')
+# Status.create(id: 3,user_id:2,company_id:2,skill_master_id: 5,status_master_id: 1,date:'2018-06-19',score:100,created_at:'',updated_at:'')
+# Status.create(id: 4,user_id:2,company_id:2,skill_master_id: 6,status_master_id: 1,date:'2018-06-19',score:70,created_at:'',updated_at:'')
+# Status.create(id: 5,user_id:3,company_id:3,skill_master_id: 7,status_master_id: 1,date:'2018-06-19',score:30,created_at:'',updated_at:'')
+# Status.create(id: 6,user_id:3,company_id:3,skill_master_id: 2,status_master_id: 1,date:'2018-06-19',score:40,created_at:'',updated_at:'')
+# Status.create(id: 7,user_id:4,company_id:4,skill_master_id: 4,status_master_id: 1,date:'2018-06-19',score:40,created_at:'',updated_at:'')
+# Status.create(id: 8,user_id:4,company_id:4,skill_master_id: 5,status_master_id: 1,date:'2018-06-19',score:40,created_at:'',updated_at:'')
+
+
 
 # StatusMaster テーブル
 # StatusMaster.create(id: 1, state: '申請')
