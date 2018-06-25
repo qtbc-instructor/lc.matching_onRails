@@ -22,7 +22,7 @@ Rails.application.routes.draw do
   post '/company/result', controller: 'company', action: 'result'
   get '/company/result', controller: 'company', action: 'result'
   delete '/company/destroy/:id', controller: 'company', action: 'destroy'
-  post '/company', controller: 'company', action: 'update'
+  post '/company/', controller: 'company', action: 'update'
 
 
   #resources :lecturer
