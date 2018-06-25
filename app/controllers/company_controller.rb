@@ -27,7 +27,6 @@ class CompanyController < ApplicationController
   end
 
   def update
-<<<<<<< HEAD
 
     logger.debug "=========================================="
     # 評価更新
@@ -49,7 +48,7 @@ class CompanyController < ApplicationController
 
     logger.debug "=========================================="
     redirect_to "/company", action: :update
-=======
+
     # @a=params[:key]
     # @b = Status.select('id,score').where(id: @a)
     # @b.each do |f|
