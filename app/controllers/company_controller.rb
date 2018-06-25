@@ -155,6 +155,5 @@ class CompanyController < ApplicationController
      flash[:notice] = "講師に申請できませんでした。"
      redirect_to :action => "search"
    end
->>>>>>> c9595bab44bf301a3e3db2e5bd1ad75018daf382
   end
 end
