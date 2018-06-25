@@ -7,6 +7,7 @@ Rails.application.routes.draw do
   post 'users/confirm'
 
   get '/lecturer' => 'lecturer#index'
+  post '/lecturer/update' => 'lecturer#update'
 
   get 'users/view'
 
