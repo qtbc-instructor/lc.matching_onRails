@@ -2,24 +2,23 @@ class CompanyController < ApplicationController
 
 # 評価の平均を講師の横にだす
 
+
   # GET /books
   # GET /books.json
   def index
-    @user = @usr
-    @user_id = @user.id
+    @Applyings = Status.joins(:user, :skill_master).select('statuses.id, users.name, skill_masters.skilltype, statuses.date').where("status_master_id = ?", 1)
+    @Approval = Status.joins(:user, :skill_master).select('users.name, skill_masters.skilltype, statuses.date').where("status_master_id = ?", 2)
+    @Denial = Status.joins(:user, :skill_master).select('statuses.id, users.name, skill_masters.skilltype, statuses.date').where("status_master_id = ?", 3)
+    @Score = Status.joins(:user, :skill_master).select('statuses.id, users.name, skill_masters.skilltype, statuses.date, statuses.score').where("status_master_id = ?", 4)
 
-    @companies = User.joins(:company)
-      .select('users.id,companies.id')
-     .find(@user_id)
+  end
 
-    @Applyings = Status.joins(:user, :skill_master).select('statuses.id, users.name, skill_masters.skilltype, statuses.date').where("status_master_id = ?", 1).where("company_id = ?", @companies.id)
-    @Approval = Status.joins(:user, :skill_master).select('statuses.id, users.name, skill_masters.skilltype, statuses.date').where("status_master_id = ?", 2).where("company_id = ?", @companies.id)
-    @Denial = Status.joins(:user, :skill_master).select('statuses.id, users.name, skill_masters.skilltype, statuses.date').where("status_master_id = ?", 3).where("company_id = ?", @companies.id)
-    @Score = Status.joins(:user, :skill_master).select('statuses.id, users.name, skill_masters.skilltype, statuses.date, statuses.score').where("status_master_id = ?", 4).where("company_id = ?", @companies.id)
+  def set_user
+    @user = User.find(params[:id])
+    @usr = @user.id
   end
 
   def destroy
-    @status_id = Status.find(params[:id])
     @status_id.destroy
     respond_to do |status|
       status.html { redirect_to "/company", notice: '削除されました。'}
@@ -27,29 +26,26 @@ class CompanyController < ApplicationController
     end
   end
 
-  def update2
-    @status_state = Status.find(params[:id])
-    @status_state.status_master_id = 4
-    @status_state.save
-  end
 
   def update
-    logger.debug "=========================================="
-    # 評価更新
-    params.each do |key,value|
-      if key[0,8] == "statusID"
-        id = key[8,10].to_i
-        s = Status.find(id)
-        s.score = value
-        s.status_master_id = 5
-        s.save
-        s.errors.messages
-      end
-    end
 
-    logger.debug "=========================================="
-
-    redirect_to "/company", action: :update
+     logger.debug "=========================================="
+     # 評価更新
+     params.each do |key,value|
+       if key[0,8] == "statusID"
+         id = key[8,10].to_i
+         s = Status.find(id)
+         s.score = value
+         s.status_master_id = 5
+         s.save
+         s.errors.messages
+       else
+         id = key[0,10].to_i
+         h = Status.find(id)
+         h.status_master_id = 4
+         h.save
+       end
+     end
 
      @users_status = User.joins(:freeday, skill: {skill_master: :status})
        .select('users.*,freedays.begin,freedays.end,skill_masters.skilltype,statuses.score')
@@ -58,6 +54,7 @@ class CompanyController < ApplicationController
        .where( statuses: { user_id: @lecture_id })
 
    end
+
 
   def search
     #Viewで検索条件表示に使用
@@ -114,5 +111,5 @@ class CompanyController < ApplicationController
       flash[:notice] = "講師に申請できませんでした。"
       redirect_to :action => "search"
     end
-   end
+   end 
  end
