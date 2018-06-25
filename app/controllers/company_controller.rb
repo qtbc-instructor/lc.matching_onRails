@@ -7,10 +7,15 @@ class CompanyController < ApplicationController
   def index
     @user = @usr
     @user_id = @user.id
-    @Applyings = Status.joins(:user, :skill_master).select('statuses.id, users.name, skill_masters.skilltype, statuses.date').where("status_master_id = ?", 1).where("company_id = @user")
-    @Approval = Status.joins(:user, :skill_master).select('statuses.id, users.name, skill_masters.skilltype, statuses.date').where("status_master_id = ?", 2).where("company_id = @user")
-    @Denial = Status.joins(:user, :skill_master).select('statuses.id, users.name, skill_masters.skilltype, statuses.date').where("status_master_id = ?", 3).where("company_id = @user")
-    @Score = Status.joins(:user, :skill_master).select('statuses.id, users.name, skill_masters.skilltype, statuses.date, statuses.score').where("status_master_id = ?", 4).where("company_id = @user")
+
+    @companies = User.joins(:company)
+      .select('users.id,companies.id')
+     .find(@user_id)
+
+    @Applyings = Status.joins(:user, :skill_master).select('statuses.id, users.name, skill_masters.skilltype, statuses.date').where("status_master_id = ?", 1).where("company_id = ?", @companies.id)
+    @Approval = Status.joins(:user, :skill_master).select('statuses.id, users.name, skill_masters.skilltype, statuses.date').where("status_master_id = ?", 2).where("company_id = ?", @companies.id)
+    @Denial = Status.joins(:user, :skill_master).select('statuses.id, users.name, skill_masters.skilltype, statuses.date').where("status_master_id = ?", 3).where("company_id = ?", @companies.id)
+    @Score = Status.joins(:user, :skill_master).select('statuses.id, users.name, skill_masters.skilltype, statuses.date, statuses.score').where("status_master_id = ?", 4).where("company_id = ?", @companies.id)
   end
 
   def destroy

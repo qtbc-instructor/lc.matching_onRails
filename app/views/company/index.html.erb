@@ -1,5 +1,5 @@
 <p id="notice"><%= notice %></p>
-<h1>ようこそ</h1>
+<h1>ようこそ<%=@companies.id %>さん</h1>
 
 <table>
   <tr> <th align='left'>企業ID</th> <td><%= @usr.id %></td> </tr>
@@ -8,7 +8,7 @@
 
 <!-- 申請中 -->
 <h3>申し込み中</h3>
-  <table border="5" frame="box" class="offerTable">
+  <table border="5" frame="box">
   <thead>
     <tr>
       <th>名前</th>
@@ -33,7 +33,6 @@
 <h3>承認済み</h3>
 <p>＊終了した講師は講義終了ボタンを押して更新してください</p>
 <table border="5" frame="box">
-<table border="5" frame="box" class="approvalTable">
 <thead>
   <tr>
     <th>名前</th>
@@ -57,7 +56,7 @@
 
 <!-- 拒否 -->
 <h3>拒否されました。</h3>
-<table border="5" frame="box" class="denialTable">
+<table border="5" frame="box">
 <thead>
   <tr>
     <th>名前</th>
@@ -81,7 +80,7 @@
 
 <!-- 評価待ち -->
 <h3>評価してください。</h3>
-<table border="5" frame="box" class="scoreTable">
+<table border="5" frame="box">
 <thead>
   <tr>
     <th>名前</th>
@@ -106,5 +105,4 @@
 <p><%= submit_tag '評価する' %></p>
 </table>
 
-<%= button_to '検索ページへ', '/company/search' %>
-<%= button_to 'ログアウトする','/logout' %>
+<%= link_to '検索ページへ', '/company/search' %>
