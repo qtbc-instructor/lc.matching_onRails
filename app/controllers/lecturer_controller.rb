@@ -75,5 +75,26 @@ class LecturerController < ApplicationController
     end
     redirect_to :action => "index"
   end
+  
+  def update    
+    @users = User.find(session[:usr])
+    @user = @users.id
+    
+    if params[:status].match(/2,*/) then
+      
+    elsif  params[:status].match(/3,*/) then
+      
+    end
+    
+    session[:test] = "updateメソッドの実行"
+    redirect_to action: :index
+      
+      
+     #user = Status.find(@user)
+    #user.status_master_id = 2
+    #user.save
+  
+    
+  end
 
 end
