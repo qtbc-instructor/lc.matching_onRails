@@ -1,15 +1,15 @@
 class LecturerController < ApplicationController
 
   def index
-    # @users = User.find(12)
-    @users = @usr
-    @user = @users.id
     
-    @application = Status.where(user_id: @user).where(status_master_id: 1)
-    @plans = Status.where(user_id: @user).where(status_master_id: 2)
+    # @usr = User.find(session[:usr])
+    # @user = @usr.id
     
-    @freedays = Freeday.where(user_id: @user)
-    @skills = Skill.where(user_id: @user)
+    @application = Status.where(user_id: @usr).where(status_master_id: 1)
+    @plans = Status.where(user_id: @usr).where(status_master_id: 2)
+    
+    # @freedays = Freeday.where(user_id: @user)
+    # @skills = Skill.where(user_id: @user)
     @freedays = Freeday.where(user_id: @usr)
     @newfreeday = Freeday.new
     
@@ -25,6 +25,7 @@ class LecturerController < ApplicationController
   def create_free
     freeday_params = params.require(:freeday).permit(:user_id,:begin,:end)
     freeday = Freeday.new(freeday_params)
+    
     if freeday.begin.nil? || freeday.end.nil? then
       flash[:notice] = '日付を入力してください'
     elsif freeday.begin < freeday.end then
@@ -44,23 +45,16 @@ class LecturerController < ApplicationController
   end
 
   def delete_free
-    @users = @usr
-    # @users = User.find(12)
-    @user = @users.id
-    if Freeday.destroy(checked_free)
-      flash[:notice] = '日付を削除しました'
-    else
-      flash[:notice] = '削除に失敗しました'
-    begin
-      days = params.require(:freeday_id)
-      if Freeday.destroy(days) then
-        flash[:notice] = '受付期間を削除しました'
-      else
-        flash[:notice] = '受付期間の削除に失敗しました'
+      begin
+        days = params.require(:freeday_id)
+        if Freeday.destroy(days) then
+          flash[:notice] = '受付期間を削除しました'
+        else
+          flash[:notice] = '受付期間の削除に失敗しました'
+        end
+      rescue
+        flash[:notice] = '削除する受付期間が選択されていません'
       end
-    rescue
-      flash[:notice] = '削除する受付期間が選択されていません'
-    end
     redirect_to :action => "index"
   end
 
@@ -103,15 +97,9 @@ class LecturerController < ApplicationController
       
     end
     
-    session[:test] = "updateメソッドの実行"
-    redirect_to action: :index
-      
-      
-     #user = Status.find(@user)
-    #user.status_master_id = 2
-    #user.save
-  
-    
   end
-
+  
+  
+  
 end
+
