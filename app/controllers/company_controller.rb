@@ -22,10 +22,42 @@ class CompanyController < ApplicationController
     end
   end
 
+<<<<<<< HEAD
   def update2
     @status_state = Status.find(params[:id])
     @status_state.status_master_id = 4
     @status_state.save
+=======
+  def update
+
+    logger.debug "=========================================="
+    # 評価更新
+    params.each do |key,value|
+      if key[0,8] == "statusID"
+        id = key[8,10].to_i
+        s = Status.find(id)
+        s.score = value
+        s.status_master_id = 5
+        s.save
+        s.errors.messages
+      else
+        id = key[0,10].to_i
+        h = Status.find(id)
+        h.status_master_id = 4
+        h.save
+      end
+    end
+
+    logger.debug "=========================================="
+
+    redirect_to "/company", action: :update
+    # @a=params[:key]
+    # @b = Status.select('id,score').where(id: @a)
+    # @b.each do |f|
+    #   @c = f.id
+    # end
+    u=Status.find(6).update_attributes(score:5)
+>>>>>>> 3ca248977a7afba3cafc8df2dd6269bd91ff2c8a
   end
 
   def update

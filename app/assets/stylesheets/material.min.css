@@ -144,7 +144,6 @@ html {
 body {
     width: 100%;
     min-height: 100%;
-    text-align: center;
 }
 main {
     display: block;
@@ -318,19 +317,74 @@ input[type="text"],input[type="password"]{
   height: 17px;
 }
 
-input[type="submit"]{
-  width: 20%;
-  font-size: 150px;
+/* input[type="submit"]{
+  width: 30%;
+} */
+
+.msg{
+  padding: 10px;
+}
+.back{
+  padding: 0px 10px;
 }
 
-.confirmTable,
+.lecturerMyPageText{
+  border-bottom: thin solid;
+}
+
+.selfTable{
+  width: 300px;
+  border-collapse: collapse;
+  margin: 3px 3px 7px 3px;
+}
+
+.selfTable th{
+  border-bottom: thin solid #666;
+}
+
+.entryDaysButton{
+  width: auto;
+  position: relative;
+  top: -30px;
+  left: 310px;
+}
+
+.entryDaysTable{
+  margin: 10px;
+}
+
+.DeleteDaysButton{
+  margin: 10px;
+}
+
+.entrySkillTable{
+  margin: 10px;
+  position: relative;
+  top: 40px;
+  left: auto;
+}
+
+.deleteSkillButton{
+  margin: 10px;
+}
+
+.historyLectureTable{
+  margin: 10px;
+}
+
+.blockA{
+  float: left;
+  width: 55%;
+}
+
+/* .confirmTable,
 .offerTable,
 .approvalTable,
 .denialTable,
 .scoreTable{
   margin-left: auto;
   margin-right: auto;
-}
+} */
 
 .mdl-typography--display-4,
 .mdl-typography--display-4-color-contrast {
@@ -5310,7 +5364,7 @@ _:-ms-input-placeholder {
 .mdl-grid.mdl-grid--no-spacing {
     padding: 0;
 }
-.mdl-cell {
+/* .mdl-cell {
     box-sizing: border-box;
 }
 .mdl-cell--top {
@@ -5332,7 +5386,7 @@ _:-ms-input-placeholder {
     -webkit-align-self: stretch;
     -ms-flex-item-align: stretch;
     align-self: stretch;
-}
+} */
 .mdl-grid.mdl-grid--no-spacing > .mdl-cell {
     margin: 0;
 }
