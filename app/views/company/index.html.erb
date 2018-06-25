@@ -17,7 +17,7 @@
         <td><%= applying.name %></td>
         <td><%= applying.skilltype %></td>
         <td><%= applying.date %></td>
-        <td><%= link_to '取り消し', company_path(applying.id), method: :delete, data: { confirm: '取り消していいですか?' } %></td>
+        <td><%= link_to '取り消し', "/company/destroy/" + applying.id.to_s, method: :delete %></td>
       </tr>
     <% end %>
   </tbody>
@@ -63,7 +63,7 @@
       <td><%= denial.name %></td>
       <td><%= denial.skilltype %></td>
       <td><%= denial.date %></td>
-      <td><%= link_to '確認', company_path(denial.id), method: :destroy %></td>
+      <td><%= link_to '確認', "/company/destroy/" + denial.id.to_s, method: :delete %></td>
     </tr>
   <% end %>
 </tbody>
@@ -82,16 +82,17 @@
 </thead>
 
 <tbody>
+  <%= form_tag(controller: :company, action: :update, method: :post) do %>
+  <% @Score.each do |key| %>
 
-  <% @Score.each do |score| %>
-  <%= form_tag(controller: :company, action: :index, method: :put) do %>
     <tr>
-      <td><%= score.name %></td>
-      <td><%= score.skilltype %></td>
-      <td><%= score.date %></td>
-      <td><%= select_tag 'score'+'score.id', options_for_select([0, 1, 2, 3, 4, 5]) %></td>
+      <td><%= key.name %></td>
+      <td><%= key.skilltype %></td>
+      <td><%= key.date %></td>
+      <td><%= select_tag "statusID"+ key.id.to_s, options_for_select([0, 1, 2, 3, 4, 5]) %></td>
       <td><%= submit_tag '評価する' %></td>
     </tr>
+
   <% end %>
   <% end %>
 </tbody>
