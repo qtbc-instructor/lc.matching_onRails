@@ -1,3 +1,3 @@
 class StatusMaster < ApplicationRecord
-  has_one :status
+  has_many :status
 end

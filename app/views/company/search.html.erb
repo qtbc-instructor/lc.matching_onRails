@@ -1,4 +1,7 @@
+<p id="notice"><%= notice %></p>
 
+<h1>講師検索フォーム</h1>
+<p>希望するスキルと日付の両方がマッチした講師が表示されます</p>
 <%= form_tag({ controller: :company, action: :search },
       Id: :search_lecturer ) do %>
     <%= select_tag 'skill', options_from_collection_for_select(
@@ -7,13 +10,51 @@
     <%= submit_tag '検索' %>
 <% end %>
 
+<% if @users.length == 0 then %>
+<%="検索してください。または条件に該当する講師がおりません" %>
+<% else %>
+
+
+<!-- 評価の平均をだす方法をきく -->
+<%= @users_status.each do |lecture| %>
+  <table border="1">
+    <tr>
+      <td>ID</td>
+      <td>講師名</td>
+      <td>評価</td>
+    </tr>
+    <tr>
+      <td><%= lecture.id %></td>
+      <td><%= lecture.name %></td>
+      <td><%= lecture.score/@users_status.length %></td>
+    </tr>
+  </table>
+<% end %>
+
+
+
 <%= @users.each do |user| %>
-  <%= check_box :checkbox, id: '' , :as => :boolean %><br>
-  名前<%= user.name %><br>
-  電話番号<%= user.tel %><br>
-  メールアドレス<%= user.mail_address %><br>
-  空いている日<%= user.begin %><br>
-  スキル<%= user.skilltype %><br>
+<table border="1">
+  <tr>
+    <td>ID</td>
+    <td>講師名</td>
+    <td>電話番号</td>
+    <td>メールアドレス</td>
+    <td>講義できる日</td>
+    <td>言語</td>
+    <td>申請</td>
+  </tr>
+  <tr>
+    <td><%= user.id %></td>
+    <td><%= user.name %></td>
+    <td><%= user.tel %></td>
+    <td><%= user.mail_address %></td>
+    <td><%= user.begin %></td>
+    <td><%= user.skilltype %></td>
+    <td><%= link_to '講師に申請する', company_result_path(id: user.id), method: :result, data: { confirm: '講師'+user.name+'さんに申請しますか？' } %></td>
+</table>
 <% end %><br>
 
-<%= link_to 'チェックした講師に申請する', company_result_path(id:1), method: :shinsei, data: { confirm: 'Are you sure?' } %>
+
+
+<% end %>

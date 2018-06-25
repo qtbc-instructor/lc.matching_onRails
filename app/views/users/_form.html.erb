@@ -1,37 +1,60 @@
 
-<!--入力フォームの描画(userテーブルに基づく入力値)-->
+<!--入力フォームの画面(userテーブルに基づく入力値)-->
 <%= form_for user , url: {action: 'confirm'} do |f| %>
-  <!--エラー表示-->
+
+<!-- モデルに対してエラーがあったとき、それぞれの変数に代入（箇条書き） -->
+<% if user.errors.any? then
+    @name_errors = user.errors.full_messages_for(:name).join("<br/>")
+    @tel_errors = user.errors.full_messages_for(:tel).join("<br/>")
+    @mail_errors = user.errors.full_messages_for(:mail_address).join("<br/>")
+    @pass_errors = user.errors.full_messages_for(:password).join("<br/>")
+    @companyname_errors = user.errors.full_messages_for(:"company.companyname").join("<br/>")
+  end %>
 
   <!--入力フォーム-->
   <div class='field'>
-    <%= f.label :name %>
+    <%= f.label :name , '名前' %>
     <%= f.text_field :name %>
+    <font size="2" style="color: Red">
+    <%= raw(@name_errors) %>
+    </font>
   </div>
 
   <!--usertype=1の時表示(企業名入力フォーム)-->
   <% if @user.usertype == 1 %>
     <%= f.fields_for :company do |cf| %>
       <div class='field'>
-        <%= cf.label :companyname %>
+        <%= cf.label :companyname , '企業名' %>
         <%= cf.text_field :companyname %>
+        <font size="2" style="color: Red">
+          <%= raw(@companyname_errors)%>
+        </font>
       </div>
     <% end %>
   <% end %>
 
   <div class='field'>
-    <%= f.label :tel %>
+    <%= f.label :tel , '電話番号' %>
     <%= f.text_field :tel %>
+    <font size="2" style="color: Red">
+      <%= raw(@tel_errors) %>
+    </font>
   </div>
 
   <div class='field'>
-    <%= f.label :mail_address %>
+    <%= f.label :mail_address , 'メールアドレス' %>
     <%= f.text_field :mail_address %>
+    <font size="2" style="color: Red">
+    <%= raw(@mail_errors) %>
+    </font>
   </div>
 
   <div class='field'>
-    <%= f.label :password %>
+    <%= f.label :password , 'パスワード' %>
     <%= f.password_field :password %>
+    <font size="2" style="color: Red">
+    <%= raw(@pass_errors) %>
+    </font>
   </div>
 
   <div class="field">
