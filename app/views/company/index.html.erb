@@ -8,7 +8,7 @@
 
 <!-- 申請中 -->
 <h3>申し込み中</h3>
-  <table border="5" frame="box">
+  <table border="5" frame="box" class="offerTable">
   <thead>
     <tr>
       <th>名前</th>
@@ -31,8 +31,12 @@
 
 <!-- 承認待ち -->
 <h3>承認済み</h3>
+<<<<<<< HEAD
 <p>＊終了した講師は講義終了ボタンを押して更新してください</p>
 <table border="5" frame="box">
+=======
+<table border="5" frame="box" class="approvalTable">
+>>>>>>> 0e90401ab3f1ae7428aaf3237bf4ebcdcf27289c
 <thead>
   <tr>
     <th>名前</th>
@@ -55,7 +59,7 @@
 
 <!-- 拒否 -->
 <h3>拒否されました。</h3>
-<table border="5" frame="box">
+<table border="5" frame="box" class="denialTable">
 <thead>
   <tr>
     <th>名前</th>
@@ -79,7 +83,7 @@
 
 <!-- 評価待ち -->
 <h3>評価してください。</h3>
-<table border="5" frame="box">
+<table border="5" frame="box" class="scoreTable">
 <thead>
   <tr>
     <th>名前</th>
@@ -104,4 +108,9 @@
 <p><%= submit_tag '評価する' %></p>
 </table>
 
+<<<<<<< HEAD
 <%= link_to '検索ページへ', '/company/search' %>
+=======
+<%= button_to '検索ページへ', '/company/search' %>
+<%= button_to 'ログアウトする','/logout' %>
+>>>>>>> 0e90401ab3f1ae7428aaf3237bf4ebcdcf27289c

@@ -1,7 +1,7 @@
 <!-- エラーメッセージ -->
 <p style="color: Red"><%= @error %></p>
 <!-- 登録完了メッセージ -->
-<p><%= notice %></p>
+<p style="color: Green"><%= notice %></p>
 
 <!-- ログインフォーム -->
 <%= form_tag action: :auth do %>
@@ -15,12 +15,14 @@
   </div>
   <!--ログイン後にリダイレクトすべきアクションを隠しフィールドにセット-->
   <%= hidden_field_tag :referer, flash[:referer] %>
+  <div class="actions">
   <%= submit_tag 'ログイン' %>
+  </div>
 <% end %>
 
 <!--新規登録フォーム-->
-<div>
-  新規登録はコチラ
-  <%= link_to '講師用' , controller: "users", action: "new", usertype: 0 %>
-  <%= link_to '企業用' , controller: "users", action: "new", usertype: 1 %>
+  <span class="text">新規登録はコチラ</span>
+  <div class="link">
+  [ <%= link_to '講師用' , controller: "users", action: "new", usertype: 0 %> ]
+  [ <%= link_to '企業用' , controller: "users", action: "new", usertype: 1 %> ]
 </div>
