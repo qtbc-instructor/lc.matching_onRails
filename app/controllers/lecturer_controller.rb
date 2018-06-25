@@ -1,11 +1,6 @@
 class LecturerController < ApplicationController
 
   def index
-    # @users = User.find(12)
-    @users = @usr
-    @user = @users.id
-    @freedays = Freeday.where(user_id: @user)
-    @skills = Skill.where(user_id: @user)
     @freedays = Freeday.where(user_id: @usr)
     @newfreeday = Freeday.new
     @skills = Skill.where(user_id: @usr).order(:skill_master_id)
@@ -39,13 +34,6 @@ class LecturerController < ApplicationController
   end
 
   def delete_free
-    @users = @usr
-    # @users = User.find(12)
-    @user = @users.id
-    if Freeday.destroy(checked_free)
-      flash[:notice] = '日付を削除しました'
-    else
-      flash[:notice] = '削除に失敗しました'
     begin
       days = params.require(:freeday_id)
       if Freeday.destroy(days) then
@@ -87,5 +75,27 @@ class LecturerController < ApplicationController
     end
     redirect_to :action => "index"
   end
+
+  def update
+    @users = User.find(session[:usr])
+    @user = @users.id
+
+    if params[:status].match(/2,*/) then
+
+    elsif  params[:status].match(/3,*/) then
+
+    end
+
+    session[:test] = "updateメソッドの実行"
+    redirect_to action: :index
+
+
+     #user = Status.find(@user)
+    #user.status_master_id = 2
+    #user.save
+
+
+  end
+
 
 end
