@@ -6,25 +6,13 @@ class CompanyController < ApplicationController
   # GET /books
   # GET /books.json
   def index
-<<<<<<< HEAD
+
     @user = @usr
     @user_id = @user.id
     @Applyings = Status.joins(:user, :skill_master).select('statuses.id, users.name, skill_masters.skilltype, statuses.date').where("status_master_id = ?", 1).where("company_id = @user")
     @Approval = Status.joins(:user, :skill_master).select('statuses.id, users.name, skill_masters.skilltype, statuses.date').where("status_master_id = ?", 2).where("company_id = @user")
     @Denial = Status.joins(:user, :skill_master).select('statuses.id, users.name, skill_masters.skilltype, statuses.date').where("status_master_id = ?", 3).where("company_id = @user")
     @Score = Status.joins(:user, :skill_master).select('statuses.id, users.name, skill_masters.skilltype, statuses.date, statuses.score').where("status_master_id = ?", 4).where("company_id = @user")
-=======
-    @Applyings = Status.joins(:user, :skill_master).select('statuses.id, users.name, skill_masters.skilltype, statuses.date').where("status_master_id = ?", 1)
-    @Approval = Status.joins(:user, :skill_master).select('users.name, skill_masters.skilltype, statuses.date').where("status_master_id = ?", 2)
-    @Denial = Status.joins(:user, :skill_master).select('statuses.id, users.name, skill_masters.skilltype, statuses.date').where("status_master_id = ?", 3)
-    @Score = Status.joins(:user, :skill_master).select('statuses.id, users.name, skill_masters.skilltype, statuses.date, statuses.score').where("status_master_id = ?", 4)
-
-  end
-
-  def set_user
-    @user = User.find(params[:id])
-    @usr = @user.id
->>>>>>> 0e90401ab3f1ae7428aaf3237bf4ebcdcf27289c
   end
 
   def destroy
@@ -36,7 +24,6 @@ class CompanyController < ApplicationController
     end
   end
 
-<<<<<<< HEAD
   def update2
     @status_state = Status.find(params[:id])
     @status_state.status_master_id = 4
@@ -58,27 +45,6 @@ class CompanyController < ApplicationController
     end
     logger.debug "=========================================="
     redirect_to "/company", action: :update
-=======
-
-  def update
-
-     logger.debug "=========================================="
-     # 評価更新
-     params.each do |key,value|
-       if key[0,8] == "statusID"
-         id = key[8,10].to_i
-         s = Status.find(id)
-         s.score = value
-         s.status_master_id = 5
-         s.save
-         s.errors.messages
-       else
-         id = key[0,10].to_i
-         h = Status.find(id)
-         h.status_master_id = 4
-         h.save
-       end
-     end
 
      @users_status = User.joins(:freeday, skill: {skill_master: :status})
        .select('users.*,freedays.begin,freedays.end,skill_masters.skilltype,statuses.score')
@@ -150,6 +116,5 @@ class CompanyController < ApplicationController
      flash[:notice] = "講師に申請できませんでした。"
      redirect_to :action => "search"
    end
->>>>>>> 0e90401ab3f1ae7428aaf3237bf4ebcdcf27289c
   end
 end
