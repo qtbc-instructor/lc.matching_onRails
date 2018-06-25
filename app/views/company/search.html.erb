@@ -1,7 +1,4 @@
 <p id="notice"><%= notice %></p>
-<%= @begin %>
-<%= @end %>
-<%= @search_freeday %>
 <h1>講師検索フォーム</h1>
 <p>希望するスキルと日付の両方がマッチした講師が表示されます</p>
 <%= form_tag({ controller: :company, action: :search },
@@ -18,27 +15,36 @@
 
 
 <!-- 評価の平均をだす方法をきく -->
+<%= @id = [] %>
+<%= @name = [] %>
+<%= @score = [] %>
 <%= @users_status.each do |lecture| %>
-  <table border="1">
-    <tr>
-      <td>ID</td>
-      <td>講師名</td>
-      <td>評価</td>
-    </tr>
-    <tr>
-      <td><%= lecture.id %></td>
-      <td><%= lecture.name %></td>
-      <td><%= lecture.score/@users_status.length %></td>
-    </tr>
-  </table>
+  <% @id.push(lecture.id).uniq! %>
+  <% @name.push(lecture.name).uniq! %>
+  <% @score.push(lecture.score) %>
+  <% @score.sum %>
 <% end %>
+
+<table border="1">
+  <tr>
+    <td>講師名</td>
+    <td>評価</td>
+  </tr>
+  <tr>
+  <%= @name.each do |name| %>
+    <td><%= name %></td>
+  <% end %>
+  <td><%= @score.sum %></td>
+  </tr>
+</table>
+
+
 
 
 
 <%= @users.each do |user| %>
 <table border="1">
   <tr>
-    <td>ID</td>
     <td>講師名</td>
     <td>電話番号</td>
     <td>メールアドレス</td>
@@ -47,7 +53,6 @@
     <td>申請</td>
   </tr>
   <tr>
-    <td><%= user.id %></td>
     <td><%= user.name %></td>
     <td><%= user.tel %></td>
     <td><%= user.mail_address %></td>
