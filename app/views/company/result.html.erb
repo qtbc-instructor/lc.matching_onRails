@@ -1,11 +1,5 @@
 
 データがとってこれているかテストするためのviewです。本番はアラートを出すのでこのviewはありません。<br>
-<%= @usr.id %>
-<%= @users.each do |user| %>
-<%= user.user_id = @search_userid %>
-<%= user.company_id = @usr.id %>
-<%= user.skill_master_id = user.skill_master_id %>
-<%= user.status_master_id = 1 %>
-<%= user.date = user.begin %>
-<%= user.score = '' %>
-<% end%>
+ログインしている企業ID<%= @usr.id %>
+<%= session[:search_skill] %>
+<%= session[:search_freeday] %>

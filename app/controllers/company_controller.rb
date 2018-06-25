@@ -54,14 +54,21 @@ class CompanyController < ApplicationController
     @skill_masters = SkillMaster.all
 
     #検索条件を設定
-    @search_skill = params[:skill]
-    @date = params[:begin]
+    # @search_skill = params[:skill]
+    # @date = params[:begin]
+
+    session[:search_skill] = params[:skill]
+    session[:search_freeday] = params[:begin]
+
+    # @search_skill = session[:search_skill]
+    # @date = session[:search_freeday]
+
 
     #検索実行
     @users = User.joins(:freeday, skill: :skill_master)
      .select('users.*,freedays.begin,freedays.end,skill_masters.skilltype')
-    .where( skills: {skill_master_id: @search_skill})
-    .where(freedays: {begin: @date})
+    .where( skills: { skill_master_id: session[:search_skill] })
+    .where(freedays: { begin: session[:search_freeday] })
 
     # @users = User.joins(:freeday, skill: {skill_master: :status})
     #  .select('users.*,freedays.begin,skill_masters.skilltype,statuses.score,statuses.status_master_id')
@@ -92,26 +99,30 @@ class CompanyController < ApplicationController
   def result
     @search_userid = params[:id]
 
-    @users = User.joins(:freeday, skill: :skill_master)
-     .select('users.*,freedays.*,skills.*,skill_masters.*')
-     .where(id: @search_userid)
+    @users = User.joins(:freeday,:company,:skill)
+     .select('users.id,name,freedays.begin,companies.id,companyname,skills.skill_master_id')
+     .where(@search_userid)
 
-    @users.each do |user|
+    @companies = User.joins(:company)
+      .select('users.id,companies.id')
+     .find(@usr.id)
+
      @status = Status.new()
      @status.user_id = @search_userid
-     @status.company_id = @usr.id
-     @status.skill_master_id = user.skill_master_id
+     @status.company_id = @companies.id
+     @status.skill_master_id = session[:search_skill]
      @status.status_master_id = 1
-     @status.date = user.begin
-     @status.score = ''
-    end
-
+     @status.date = session[:search_freeday]
+     @status.score = 0
+     logger.debug "=======================-"
     if @status.save
      flash[:notice] = "講師に申請しました。"
      redirect_to :action => "index"
     else
+      logger.debug @status.errors.messages
+      logger.debug "=======================-"
      flash[:notice] = "講師に申請できませんでした。"
      redirect_to :action => "search"
-    end
+   end
   end
 end

@@ -35,6 +35,7 @@
   <%= check_box :checkbox, id: '' , :as => :boolean %><br>
 <table border="1">
   <tr>
+    <td>ID</td>
     <td>講師名</td>
     <td>電話番号</td>
     <td>メールアドレス</td>
@@ -43,12 +44,13 @@
     <td>申請</td>
   </tr>
   <tr>
+    <td><%= user.id %></td>
     <td><%= user.name %></td>
     <td><%= user.tel %></td>
     <td><%= user.mail_address %></td>
     <td><%= user.begin %></td>
     <td><%= user.skilltype %></td>
-    <td><%= link_to 'チェックした講師に申請する', company_result_path(id: user.id), method: :result, data: { confirm: 'Are you sure?' } %></td>
+    <td><%= link_to '講師に申請する', company_result_path(id: user.id), method: :result, data: { confirm: 'Are you sure?' } %></td>
 </table>
 <% end %><br>
 
