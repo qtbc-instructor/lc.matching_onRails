@@ -2,6 +2,7 @@ class CompanyController < ApplicationController
 
 # 評価の平均を講師の横にだす
 
+  before_action :set_book, only: [:show, :edit, :update, :destroy]
 
   # GET /books
   # GET /books.json
@@ -55,8 +56,8 @@ class CompanyController < ApplicationController
   # end
 
   def update
-    @status_score = Status.where(params[:id])
-  
+    @status_score = Status.find(params[:id.to_i])
+    @score = @status_score.score
     respond_to do |score|
       if @score.update(update)
         score.html { redirect_to @score, notice: '評価されました。'}
