@@ -27,14 +27,10 @@ class LecturerController < ApplicationController
     if freeday.begin.nil? || freeday.end.nil? then
       flash[:notice] = '日付を入力してください'
     elsif freeday.begin < freeday.end then
-      if Freeday.where(user_id: @usr.id).where(begin: Float::INFINITY..Time.new(freeday.end).where(end: Time.new(freeday.begin)..Float::INFINITY).length == 0 then
-        if freeday.save then
-          flash[:notice] = '申請受付期間を登録しました'
-        else
-          flash[:notice] = '申請受付期間の登録に失敗しました'
-        end
+      if freeday.save then
+        flash[:notice] = '申請受付期間を登録しました'
       else
-        flash[:notice] = '期間が重複しています'
+        flash[:notice] = '申請受付期間の登録に失敗しました'
       end
     else
       flash[:notice] = '初日〜最終日で入力してください'
