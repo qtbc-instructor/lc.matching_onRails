@@ -1,7 +1,7 @@
 class LecturerController < ApplicationController
 
   def index
-    @freedays = Freeday.where(user_id: @usr)
+    @freedays = Freeday.where(user_id: @usr).order(begin: "ASC")
     @newfreeday = Freeday.new
     @skills = Skill.where(user_id: @usr).order(:skill_master_id)
     skill_ids=[]
@@ -9,7 +9,7 @@ class LecturerController < ApplicationController
       skill_ids.push(f.skill_master_id)
     end
     @addskills = SkillMaster.where.not(id: skill_ids)
-    @status = Status.where(user_id: @usr.id,status_master_id: 5)
+    @status = Status.where(user_id: @usr.id,status_master_id: 5).order(id: "DESC")
   end
 
   def create_free
