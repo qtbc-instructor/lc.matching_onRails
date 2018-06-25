@@ -99,38 +99,6 @@ class CompanyController < ApplicationController
       .where( freedays: { begin: session[:search_freeday] })
       .where( statuses: { user_id: @lecture_id })
 
-    # 講師を取り出す
-    # @users.each do |lecture|
-    #   @lecture_id = lecture.id
-    #   @lecture_name = lecture.name
-    #   @lecture_score = lecture.score
-    # end
-
-
-    # @users = User.joins(:freeday, skill: {skill_master: :status})
-    #  .select('users.*,freedays.begin,skill_masters.skilltype,statuses.score,statuses.status_master_id')
-    # .where( skills: {skill_master_id: @search_skill})
-    # .where(freedays: {begin: @date})
-    # .where(freedays: {begin: @date})
-    # .where(statuses: {status_master_id: nil})
-
-
-    # @score = Status.select('id,user_id,skill_master_id,date,score')
-    #   .where(user_id: 2)
-    #   .where(date: @date)
-    #   .where(skill_master_id: @search_skill)
-    #
-    #   @score.each do |id|
-    #     @name = id.id
-    #     if @name.present? then
-    #
-    #     else
-    #       @total = 0
-    #       @total += id.score
-    #     end
-    #   end
-    #
-    # @hyouka = User.select('name').where(id: @name)
   end
 
   def result
