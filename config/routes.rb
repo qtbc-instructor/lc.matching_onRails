@@ -14,17 +14,15 @@ Rails.application.routes.draw do
   post 'login/auth'
   get 'login/logout'
 
-  get 'lecturer/index'
 
-  #resources :companies
+  # resources :companies
   get '/company', controller: 'company', action: 'index'
   get '/company/search', controller: 'company', action: 'search'
   post '/company/search', controller: 'company', action: 'search'
   post '/company/result', controller: 'company', action: 'result'
-
-
+  get '/company/result', controller: 'company', action: 'result'
   delete '/company/destroy/:id', controller: 'company', action: 'destroy'
-  put '/company/update', controller: 'company', action: 'update'
+  post '/company', controller: 'company', action: 'update'
 
 
   #resources :lecturer
@@ -32,7 +30,6 @@ Rails.application.routes.draw do
   get 'lecturer/index'
 
   #LECTURER ROUTES
-  get 'lecturer/:id' => 'lecturer#index'
   post 'lecturer/newfreeday' => 'lecturer#create_free'
   post 'lecturer/addskill' => 'lecturer#add_skill'
   post 'lecturer/deletefree' => 'lecturer#delete_free'
