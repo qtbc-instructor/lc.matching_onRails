@@ -9,19 +9,23 @@ class LecturerController < ApplicationController
       skill_ids.push(f.skill_master_id)
     end
     @addskills = SkillMaster.where.not(id: skill_ids)
-    @score = Status.select("score").where(user_id: @usr.id, status_master_id: 5)
+    @status = Status.where(user_id: @usr.id, status_master_id: 5)
   end
 
   def create_free
     freeday_params = params.require(:freeday).permit(:user_id,:begin,:end)
     freeday = Freeday.new(freeday_params)
-    if !freeday.begin.present? || !freeday.end.present? then
+    if freeday.begin.nil? || freeday.end.nil? then
       flash[:notice] = '日付を入力してください'
     elsif freeday.begin < freeday.end then
-      if freeday.save then
-        flash[:notice] = '申請受付期間を登録しました'
+      if true then
+        if freeday.save then
+          flash[:notice] = '申請受付期間を登録しました'
+        else
+          flash[:notice] = '申請受付期間の登録に失敗しました'
+        end
       else
-        flash[:notice] = '申請受付期間の登録に失敗しました'
+        flash[:notice] = '期間が重複しています'
       end
     else
       flash[:notice] = '初日〜最終日で入力してください'
