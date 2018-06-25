@@ -43,6 +43,8 @@
       <td><%= approval.name %></td>
       <td><%= approval.skilltype %></td>
       <td><%= approval.date %></td>
+      <td><%= approval.id.to_s %></td>
+      <td><%= submit_tag '確認' %></td>
     </tr>
   <% end %>
 </tbody>
@@ -93,7 +95,6 @@
       <td><%= key.skilltype %></td>
       <td><%= key.date %></td>
       <td><%= select_tag "statusID"+ key.id.to_s, options_for_select([0, 1, 2, 3, 4, 5]) %></td>
-      <td><%= link_to '評価する',company_path(id:key.id), method: :update %></td>
       <td><%= submit_tag '評価する' %></td>
     </tr>
 
