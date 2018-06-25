@@ -89,12 +89,18 @@
       <th>日付</th>
       <th>評価</th>
     </tr>
-    <% @status.each do |f| %>
+    <% if @status.length != 0 %>
+      <% @status.each do |f| %>
+        <tr>
+          <td><%= f.company.companyname %></td>
+          <td><%= f.skill_master.skilltype %></td>
+          <td><%= f.date %></td>
+          <td align='center'><%= f.score %></td>
+        </tr>
+      <% end %>
+    <% else %>
       <tr>
-        <td><%= f.company.companyname %></td>
-        <td><%= f.skill_master.skilltype %></td>
-        <td><%= f.date %></td>
-        <td align='center'><%= f.score %></td>
+        <td colspan="4">なし</td>
       </tr>
     <% end %>
   </table>

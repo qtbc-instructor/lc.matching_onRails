@@ -1,10 +1,8 @@
 class LecturerController < ApplicationController
 
   def index
-    
     # @usr = User.find(session[:usr])
     # @user = @usr.id
-    
     @application = Status.where(user_id: @usr).where(status_master_id: 1)
     @plans = Status.where(user_id: @usr).where(status_master_id: 2)
     
@@ -29,7 +27,7 @@ class LecturerController < ApplicationController
     if freeday.begin.nil? || freeday.end.nil? then
       flash[:notice] = '日付を入力してください'
     elsif freeday.begin < freeday.end then
-      if true then
+      if Freeday.where(user_id: @usr.id).where(begin: Float::INFINITY..Time.new(freeday.end).where(end: Time.new(freeday.begin)..Float::INFINITY).length == 0 then
         if freeday.save then
           flash[:notice] = '申請受付期間を登録しました'
         else
@@ -45,6 +43,7 @@ class LecturerController < ApplicationController
   end
 
   def delete_free
+<<<<<<< HEAD
       begin
         days = params.require(:freeday_id)
         if Freeday.destroy(days) then
@@ -54,6 +53,14 @@ class LecturerController < ApplicationController
         end
       rescue
         flash[:notice] = '削除する受付期間が選択されていません'
+=======
+    begin
+      days = params.require(:freeday_id)
+      if Freeday.destroy(days) then
+        flash[:notice] = '受付期間を削除しました'
+      else
+        flash[:notice] = '受付期間の削除に失敗しました'
+>>>>>>> a416f49f30d9b4bbce1aa8f01adc562c9d2ca4eb
       end
     redirect_to :action => "index"
   end
@@ -86,6 +93,7 @@ class LecturerController < ApplicationController
     end
     redirect_to :action => "index"
   end
+<<<<<<< HEAD
   
   def update    
     @users = User.find(session[:usr])
@@ -101,5 +109,30 @@ class LecturerController < ApplicationController
   
   
   
+=======
+
+  def update
+    @users = User.find(session[:usr])
+    @user = @users.id
+
+    if params[:status].match(/2,*/) then
+
+    elsif  params[:status].match(/3,*/) then
+
+    end
+
+    session[:test] = "updateメソッドの実行"
+    redirect_to action: :index
+
+
+     #user = Status.find(@user)
+    #user.status_master_id = 2
+    #user.save
+
+
+  end
+
+
+>>>>>>> a416f49f30d9b4bbce1aa8f01adc562c9d2ca4eb
 end
 
