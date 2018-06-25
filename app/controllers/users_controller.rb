@@ -70,5 +70,13 @@ private
     params.require(:user).permit!
     #params.require(:user).permit(:name, :tel, :mail_address, :password , :usertype , company_attribute:[:companyname])
   end
+  
+  def update
+  end
+  
+  def edit
+  end    
 
+  def check
+  end
 end
