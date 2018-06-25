@@ -144,7 +144,7 @@ html {
 body {
     width: 100%;
     min-height: 100%;
-    margin: 0;
+    text-align: center;
 }
 main {
     display: block;
@@ -158,6 +158,7 @@ html {
     font-size: 14px;
     font-weight: 400;
     line-height: 20px;
+
 }
 h1,
 h2,
@@ -182,7 +183,7 @@ h6 small {
     font-size: 0.6em;
 }
 h1 {
-    font-size: 56px;
+    font-size: 40px;
     line-height: 1.35;
     letter-spacing: -.02em;
     margin: 24px 0;
@@ -193,7 +194,7 @@ h2 {
     font-weight: 400;
 }
 h2 {
-    font-size: 45px;
+    font-size: 36px;
     line-height: 48px;
 }
 h2,
@@ -201,7 +202,7 @@ h3 {
     margin: 24px 0;
 }
 h3 {
-    font-size: 34px;
+    font-size: 30px;
     line-height: 40px;
 }
 h3,
@@ -285,6 +286,52 @@ ul {
     font-size: 14px;
     line-height: 24px;
 }
+
+.fieldWithErrors {
+  padding:3px;
+  border:2px solid red;
+}
+
+.field{
+  font-size: 17px;
+  padding: 8px;
+}
+
+.actions{
+  font-size: 17px;
+  margin: 10px;
+}
+
+.text{
+  font-size: 17px;
+  padding: 5px;
+  margin: 10px;
+}
+
+.link{
+  font-size: 17px;
+  padding: 7px;
+}
+
+input[type="text"],input[type="password"]{
+	width:35%;
+  height: 17px;
+}
+
+input[type="submit"]{
+  width: 20%;
+  font-size: 150px;
+}
+
+.confirmTable,
+.offerTable,
+.approvalTable,
+.denialTable,
+.scoreTable{
+  margin-left: auto;
+  margin-right: auto;
+}
+
 .mdl-typography--display-4,
 .mdl-typography--display-4-color-contrast {
     font-family: 'Roboto','Helvetica','Arial',sans-serif;

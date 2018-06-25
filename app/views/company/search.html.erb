@@ -1,5 +1,7 @@
 <p id="notice"><%= notice %></p>
-
+<%= @begin %>
+<%= @end %>
+<%= @search_freeday %>
 <h1>講師検索フォーム</h1>
 <p>希望するスキルと日付の両方がマッチした講師が表示されます</p>
 <%= form_tag({ controller: :company, action: :search },

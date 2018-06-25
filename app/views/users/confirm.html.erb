@@ -5,10 +5,12 @@
   ・戻るボタンはnewページ(値は保持したまま)
   ・登録ボタンでDBに保存
 -->
+<h1>確認画面</h1>
 
 <%= form_for (@user) do |f| %>
+<table class="confirmTable">
   <div class="field">
-    名前: <%= @user.name %>
+    <tr><td>名前</td><td><%= @user.name %></td></tr>
     <%= f.hidden_field :name %>
   </div>
 
@@ -16,7 +18,7 @@
   <% if @user.usertype == 1 %>
     <%= f.fields_for :company  do |cf| %>
       <div class='field'>
-        企業名: <%= @user.company.companyname %>
+        <tr><td>企業名</td><td><%= @user.company.companyname %></td></tr>
         <%= cf.hidden_field :companyname %>
       </div>
     <% end %>
@@ -24,25 +26,25 @@
 
 
   <div class="field">
-    電話番号: <%= @user.tel %>
+    <tr><td>電話番号</td><td><%= @user.tel %></td></tr>
     <%= f.hidden_field :tel %>
   </div>
 
   <div class="field">
-    メールアドレス: <%= @user.mail_address %>
+    <tr><td>メールアドレス</td><td><%= @user.mail_address %></td></tr>
     <%= f.hidden_field :mail_address %>
   </div>
 
   <div class="field">
-    パスワード: <%= @user.password.slice(0) %>
+    <tr><td>パスワード</td><td><%= @user.password.slice(0) %>
     <% i=0 %>
     <% while i < (@user.password.length - 1) do %>
       <%= '*' %>
       <% i = i+1 %>
-    <% end %>
+    <% end %></td></tr>
     <%= f.hidden_field :password %>
   </div>
-
+</table>
   <div class="field">
     <%= f.hidden_field :usertype , :value => @user.usertype %>
   </div>
