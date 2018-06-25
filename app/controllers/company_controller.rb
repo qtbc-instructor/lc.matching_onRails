@@ -1,7 +1,7 @@
 class CompanyController < ApplicationController
   def index
     @Applyings = Status.joins(:user, :skill_master).select('statuses.id, users.name, skill_masters.skilltype, statuses.date').where("status_master_id = ?", 1)
-    @Approval = Status.joins(:user, :skill_master).select('users.name, skill_masters.skilltype, statuses.date').where("status_master_id = ?", 2)
+    @Approval = Status.joins(:user, :skill_master).select('statuses.id, users.name, skill_masters.skilltype, statuses.date').where("status_master_id = ?", 2)
     @Denial = Status.joins(:user, :skill_master).select('statuses.id, users.name, skill_masters.skilltype, statuses.date').where("status_master_id = ?", 3)
     @Score = Status.joins(:user, :skill_master).select('statuses.id, users.name, skill_masters.skilltype, statuses.date, statuses.score').where("status_master_id = ?", 4)
 
@@ -32,17 +32,15 @@ class CompanyController < ApplicationController
         s.status_master_id = 5
         s.save
         s.errors.messages
-      end
-      if key[0,12] == "status_score"
-        id = key[12,100].to_i
-        s = Status.find(id)
-        s.status_master_id = 4
-        s.save
-        s.errors.messages
+      else
+        id = key[0,10].to_i
+        h = Status.find(id)
+        h.status_master_id = 4
+        h.save
       end
     end
-    logger.debug "=========================================="
 
+    logger.debug "=========================================="
     redirect_to "/company", action: :update
   end
 end
