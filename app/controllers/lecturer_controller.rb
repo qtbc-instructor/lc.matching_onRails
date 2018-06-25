@@ -1,12 +1,12 @@
 class LecturerController < ApplicationController
 
   def index
+
+    @application = Status.where(user_id: @usr).where(status_master_id: 1)
+    @plans = Status.where(user_id: @usr).where(status_master_id: 2)
+
     @freedays = Freeday.where(user_id: @usr).order(begin: "ASC")
     @new_freeday = Freeday.new
-<<<<<<< HEAD
-    @newfreeday = Freeday.new
-=======
->>>>>>> 3ca248977a7afba3cafc8df2dd6269bd91ff2c8a
     @skills = Skill.where(user_id: @usr).order(:skill_master_id)
     skill_ids=[]
     @skills.each do |f|
@@ -14,11 +14,6 @@ class LecturerController < ApplicationController
     end
     @add_skills = SkillMaster.where.not(id: skill_ids)
     @status = Status.where(user_id: @usr,status_master_id: 5).limit(10).order(id: "DESC")
-<<<<<<< HEAD
-    @addskills = SkillMaster.where.not(id: skill_ids)
-    @status = Status.where(user_id: @usr.id,status_master_id: 5).order(id: "DESC")
-=======
->>>>>>> 3ca248977a7afba3cafc8df2dd6269bd91ff2c8a
   end
 
   def create_free
@@ -35,38 +30,25 @@ class LecturerController < ApplicationController
           flash[:notice] = '申請受付期間の登録に失敗しました'
         end
       else
-        flash[:notice] = '日付が重複しています'
-<<<<<<< HEAD
-    freeday = Freeday.new(freeday_params)
-
-    if freeday.begin.nil? || freeday.end.nil? then
-      flash[:notice] = '日付を入力してください'
-    elsif freeday.begin < freeday.end then
-      if freeday.save then
-        flash[:notice] = '申請受付期間を登録しました'
-      else
-        flash[:notice] = '申請受付期間の登録に失敗しました'
-=======
->>>>>>> 3ca248977a7afba3cafc8df2dd6269bd91ff2c8a
+        flash[:notice] = '期間が重複しています'
       end
     else
       flash[:notice] = '初日〜最終日で入力してください'
     end
-
     redirect_to :action => "index"
   end
 
   def delete_free
-    begin
-      days = params.require(:freeday_id)
-      if Freeday.destroy(days) then
-        flash[:notice] = '受付期間を削除しました'
-      else
-        flash[:notice] = '受付期間の削除に失敗しました'
-      end
-    rescue
+      begin
+        days = params.require(:freeday_id)
+        if Freeday.destroy(days) then
+          flash[:notice] = '受付期間を削除しました'
+        else
+          flash[:notice] = '受付期間の削除に失敗しました'
+        end
+      rescue
         flash[:notice] = '削除する受付期間が選択されていません'
-    end
+      end
     redirect_to :action => "index"
   end
 
@@ -100,26 +82,14 @@ class LecturerController < ApplicationController
   end
 
   def update
-    @users = User.find(session[:usr])
-    @user = @users.id
-
     if params[:status].match(/2,*/) then
-
+       @authentication = params[:status].delete("2,")
+       Status.where(user_id: @usr).where(skill_master_id: @authentication).update(status_master_id: 2)
     elsif  params[:status].match(/3,*/) then
-
+       @rejection = params[:status].delete("3,")
+       Status.where(user_id: @usr).where(skill_master_id: @rejection).update(status_master_id: 3)
     end
-
-    session[:test] = "updateメソッドの実行"
     redirect_to action: :index
-
-
-     #user = Status.find(@user)
-    #user.status_master_id = 2
-    #user.save
-<<<<<<< HEAD
-=======
   end
->>>>>>> 3ca248977a7afba3cafc8df2dd6269bd91ff2c8a
-  end
+  
 end
-

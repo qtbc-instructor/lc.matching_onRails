@@ -10,7 +10,6 @@
 </div>
 
   <!-- 講師情報 -->
-  <table class="selfTable">
     <tr><th>講師ID</th><th>講師名</th><th>平均評価</th></tr>
     <td><%= @usr.id %></td><td><%= @usr.name %></td><td><%= @status.present? ? @status.average(:score) : 'なし'  %></td></tr>
   </table>
@@ -117,7 +116,8 @@
 <hr style="clear:left">
 
 <h3>通知</h3>
-<% if !@application.blank? then %> 
+<% if !@application.blank? then %>
+<%= form_tag('lecturer/update', method: :post) do %>
 <table border="1">
   <tr>
     <td>認証</td>
@@ -126,23 +126,21 @@
     <td>スキル</td>
     <td>日付</td>
   </tr>
-  <% form_tag('/update', method: :post) do %>
-  <% @application.each do |f| %> 
+  <% @application.each do |f| %>
     <tr>
-      <td><%= radio_button ':status', 'selected', '2', {} %><br /></td>
-      <td><%= radio_button ':status', 'selected', '3', {} %><br /></td>
+      <td><%= radio_button_tag 'status', '2,#{f.skill_master_id}', {} %><br /></td>
+      <td><%= radio_button_tag 'status', '3,#{f.skill_master_id}', {} %><br /></td>
       <td><%= f.company.companyname %></td>
       <td><%= f.skill_master.skilltype %></td>
       <td><%= f.date %></td>
     </tr>
   <% end %>
 </table>
-
-  <%= submit_tag('認証する'{ confirm: '認証しますか？'}) %>
+<%= submit_tag '認証する',date: {confirm: =>'認証しますか？'} %>
+<% end %>
 <% else %>
 <p>申請はありません</p>
-<% end %> 
-<% end %> 
+<% end %>
 
 <h3>予定</h3>
 <% if !@plans.blank? then %>
@@ -152,7 +150,7 @@
     <td>スキル</td>
     <td>日付</td>
   </tr>
-  <% @plans.each do |f| %> 
+  <% @plans.each do |f| %>
     <tr>
       <td><%= f.company.companyname %></td>
       <td>
@@ -163,7 +161,8 @@
       <td><%= f.date %></td>
     </tr>
   <% end %>
-</table>    
+</table>
 <% else %>
  <p>予定はありません<p>
 <% end %>
+<%= link_to "ログイン画面へ", {:controller => "login", :action => "index"} %>
