@@ -30,60 +30,56 @@
     <tr><td><%= f.skill_master.skilltype %></td></tr>
   <% end %>
 </table>
-
 <br>
-<% if !@application.nil? then %>
+
   <h3>通知</h3>
+  <% if !@application.blank? then %> 
   <table border="1">
     <tr>
+      <td>認証</td>
+      <td>拒否</td>
       <td>会社名</td>
       <td>スキル</td>
       <td>日付</td>
     </tr>
-    <%= form_for(@user_status) do |f| %>
+    <% form_tag('/update', method: :post) do %>
+    <% @application.each do |f| %> 
       <tr>
-        <td><%= f.radio_button :selected,'申請' %>申請</td>
-        <td><%= f.radio_button :selected,'承認' %>承認</td>
-      </tr>
-    <tr>
-      <td><%= f.companyname %></td>
-      <% @skills.each do |f|  %>
+        <td><%= radio_button ':status', 'selected', '2,#{f.skill_master.skilltype}', {} %><br /></td>
+        <td><%= radio_button ':status', 'selected', '3,#{f.skill_master.skilltype}', {} %><br /></td>
+        <td><%= f.company.companyname %></td>
         <td><%= f.skill_master.skilltype %></td>
-      <% end %>
-      <td><%= f.date %></td>
-    </tr>
+        <td><%= f.date %></td>
+      </tr>
     <% end %>
   </table>
 
-  <%= button_to('認証する', '/lecturer/update',
-    method: "post", remote: true, data: { confirm: '認証しますか？', disable_with: 'loading...' }) %>
-<% end %>
+    <%= submit_tag('認証する'{ confirm: '認証しますか？'}) %>
+  <% else %>
+  <p>申請はありません</p>
+  <% end %> 
+  <% end %> 
 
-<%= debug @user_status %>
-
-<% if !@company_name.nil? then %>
   <h3>予定</h3>
+  <% if !@plans.blank? then %>
   <table border="1">
     <tr>
       <td>会社名</td>
       <td>スキル</td>
       <td>日付</td>
     </tr>
-  
-<% end %>
-  </table>
-<!-- 
-<h3>予定</h3>
-<table border="1">
-  <tr>
-    <td></td>
-    <td></td>
-    <td></td>
-  </tr>
-  <tr>
-    <td></td>
-    <td></td>
-    <td></td>
-  </tr>
-</table> -->
-
+    <% @plans.each do |f| %> 
+      <tr>
+        <td><%= f.company.companyname %></td>
+        <td>
+          <% @skills.each do |f|  %>
+            <%= f.skill_master.skilltype %>
+          <% end %>
+        </td>
+        <td><%= f.date %></td>
+      </tr>
+    <% end %>
+  </table>    
+  <% else %>
+   <p>予定はありません<p>
+  <% end %>
