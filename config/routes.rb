@@ -15,6 +15,7 @@ Rails.application.routes.draw do
   post 'login/auth'
   get 'login/logout'
 
+  post '/logout', controller: 'login', action: 'logout'
 
   # resources :companies
   get '/company', controller: 'company', action: 'index'
@@ -24,6 +25,7 @@ Rails.application.routes.draw do
   get '/company/result', controller: 'company', action: 'result'
   delete '/company/destroy/:id', controller: 'company', action: 'destroy'
   post '/company', controller: 'company', action: 'update'
+
 
 
   #resources :lecturer
