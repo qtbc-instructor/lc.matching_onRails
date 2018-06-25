@@ -13,6 +13,7 @@ class CompanyController < ApplicationController
   end
 
   def destroy
+    @status_id = Status.find(params[:id])
     @status_id.destroy
     respond_to do |status|
       status.html { redirect_to "/company", notice: '削除されました。'}
@@ -20,8 +21,13 @@ class CompanyController < ApplicationController
     end
   end
 
-  def update
+  def update2
+    @status_state = Status.find(params[:id])
+    @status_state.status_master_id = 4
+    @status_state.save
+  end
 
+  def update
     logger.debug "=========================================="
     # 評価更新
     params.each do |key,value|
@@ -32,11 +38,6 @@ class CompanyController < ApplicationController
         s.status_master_id = 5
         s.save
         s.errors.messages
-      else
-        id = key[0,10].to_i
-        h = Status.find(id)
-        h.status_master_id = 4
-        h.save
       end
     end
 
