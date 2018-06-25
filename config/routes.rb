@@ -25,12 +25,13 @@ Rails.application.routes.draw do
   get '/company/result', controller: 'company', action: 'result'
   delete '/company/destroy/:id', controller: 'company', action: 'destroy'
   post '/company/', controller: 'company', action: 'update'
-
+  post '/company/:id', controller: 'company', action: 'update2'
 
 
   #resources :lecturer
 
   get 'lecturer/index'
+  post 'lecturer/update'
 
   #LECTURER ROUTES
   post 'lecturer/newfreeday' => 'lecturer#create_free'
