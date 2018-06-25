@@ -1,19 +1,16 @@
-
-<!-- <% flash.each do |key, value| %>
-  <%= content_tag(:div, value, class: "#{key}") %>
-<% end %> -->
-<!-- count=<%= flash.count %> -->
-<!-- <p>abc<%= flash[:msg] %></p> -->
-
+<!-- エラーメッセージ -->
 <p style="color: Red"><%= @error %></p>
+<!-- 登録完了メッセージ -->
+<p><%= notice %></p>
 
+<!-- ログインフォーム -->
 <%= form_tag action: :auth do %>
   <div class="field">
-    <%= label_tag :mail_address, 'メールアドレス' %><br />
+    <%= label_tag :mail_address, 'メールアドレス' %><br>
     <%= text_field_tag :mail_address ,'', size: 20 %>
   </div>
   <div class="field">
-    <%= label_tag :password, 'パスワード' %><br />
+    <%= label_tag :password, 'パスワード' %><br>
     <%= password_field_tag :password, '', size: 20 %>
   </div>
   <!--ログイン後にリダイレクトすべきアクションを隠しフィールドにセット-->

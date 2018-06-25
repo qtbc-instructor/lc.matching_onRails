@@ -35,8 +35,7 @@ class UsersController < ApplicationController
     #データの保存と結果に対する処理を分岐する
       if @user.save then
         #成功したら、ログイン画面にメッセージ
-
-        redirect_to controller: :login, action: :index,falsh:"New user!!"
+        redirect_to '/', notice: "新規登録完了しました!"
         # flash[:notice] = '新規登録完了しました!'
       else
         #失敗したら、登録フォームを再描画

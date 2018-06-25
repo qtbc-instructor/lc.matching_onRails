@@ -8,7 +8,7 @@
 
 <%= form_for (@user) do |f| %>
   <div class="field">
-    name: <%= @user.name %>
+    名前: <%= @user.name %>
     <%= f.hidden_field :name %>
   </div>
 
@@ -16,7 +16,7 @@
   <% if @user.usertype == 1 %>
     <%= f.fields_for :company  do |cf| %>
       <div class='field'>
-        companyname: <%= @user.company.companyname %>
+        企業名: <%= @user.company.companyname %>
         <%= cf.hidden_field :companyname %>
       </div>
     <% end %>
@@ -24,17 +24,22 @@
 
 
   <div class="field">
-    tel: <%= @user.tel %>
+    電話番号: <%= @user.tel %>
     <%= f.hidden_field :tel %>
   </div>
 
   <div class="field">
-    mail: <%= @user.mail_address %>
+    メールアドレス: <%= @user.mail_address %>
     <%= f.hidden_field :mail_address %>
   </div>
 
   <div class="field">
-    password: <%= @user.password %>
+    パスワード: <%= @user.password.slice(0) %>
+    <% i=0 %>
+    <% while i < (@user.password.length - 1) do %>
+      <%= '*' %>
+      <% i = i+1 %>
+    <% end %>
     <%= f.hidden_field :password %>
   </div>
 
@@ -51,5 +56,3 @@
   </div>
 
 <% end %>
-
-<%#= link_to '戻る', new_user_path %>
