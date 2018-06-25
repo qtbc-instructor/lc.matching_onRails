@@ -1,9 +1,15 @@
 <h1>講師マイページ</h1>
+メッセージ：
+<% if flash.empty? then %>
+  なし
+<% else %>
 <%= flash.now[:notice] %>
+<% end %>
+
 
 <table>
-  <tr> <th>講師ID</th> <td><%= @user %></td> </tr>
-  <tr> <th>講師名</th> <td><%= @users.name %></td> </tr>
+  <tr> <th>講師ID</th> <td><%= @usr.id %></td> </tr>
+  <tr> <th>講師名</th> <td><%= @usr.name %></td> </tr>
 </table>
 
 <table border="1" style="float:left">
@@ -22,40 +28,66 @@
       </td>
     </tr>
   <% end %>
-  <%= submit_tag '削除' %>
+  <%= submit_tag '選択日付削除' %>
  <% end %>
 <% end %>
 </table>
 
 <%= form_for(@freeday, :url => {:action => 'create_free'} ,method: :post) do |f| %>
   <div class="field">
-    <%= f.hidden_field :user_id, :value => @user %>
-    <%= f.label :begin %>
-    <%= f.date_field :begin ,size: 35 %>
-    <%= f.label :end %>
-    <%= f.date_field :end ,size: 35 %>
+    <%= f.hidden_field :user_id, :value => @usr.id %>
+    <%= f.date_field :begin ,size: 35 %> 〜 <%= f.date_field :end ,size: 35 %>
+    <%= f.submit '日付登録' %>
   </div>
-  <div class="actions">
-    <%= f.submit %>
-  </div>
+
 <% end %>
 
 
-<table border="1" style="clear:left">
+
+<div style="clear:left">
+<table border="1" style="float:left">
   <th>登録済みスキル</th>
 <% if @skills.length == 0 then %>
   <tr>
     <td>未登録</td>
   </tr>
-<% end %>
-<% @skills.each do |f|  %>
-  <tr>
-    <td>
-      <%= check_box_tag("skill_id[]", f.id ) %>
-      <%= f.skill_master.skilltype %>
-    </td>
-  </tr>
+<% else %>
+<%= form_tag action: :delete_skill do %>
+  <% @skills.each do |f|  %>
+    <tr>
+      <td>
+        <%= check_box_tag("skill_id[]", f.id ) %>
+        <%= f.skill_master.skilltype %>
+        ID:<%= f.id %>
+      </td>
+    </tr>
+  <% end %>
+  <%= submit_tag '登録スキル削除' %>
+  <% end %>
 <% end %>
 </table>
+
+<table border="1" style="float:left">
+  <th>未登録スキル</th>
+<% if @addskills.length == 0 then %>
+  <tr>
+    <td>なし</td>
+  </tr>
+<% else %>
+<%= form_tag action: :add_skill do %>
+  <% @addskills.each do |f|  %>
+    <tr>
+      <td>
+        <%= check_box_tag("skill_id[]", f.skill_master_id ) %>
+        <%= f.skill_master.skilltype %>
+        SMID:<%= f.skill_master.id %>
+      </td>
+    </tr>
+  <% end %>
+  <%= submit_tag 'スキル登録' %>
+  <% end %>
+<% end %>
+</table>
+</div>
 
 <hr>
