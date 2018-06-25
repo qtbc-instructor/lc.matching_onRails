@@ -64,20 +64,22 @@ class CompanyController < ApplicationController
     session[:search_freeday] = params[:begin]
 
     #検索実行
+
+    @freeday = Freeday.select('id,begin,end')
+                .where( begin: session[:search_freeday])
+
+    @freeday.each do |f|
+      @id = f.id
+      @begin = f.begin
+      @end = f.end
+    end
+
     @users = User.joins(:freeday, skill: :skill_master)
      .select('users.*,freedays.begin,freedays.end,skill_masters.skilltype')
      .where( skills: { skill_master_id: session[:search_skill] })
-     .where( freedays: { begin: session[:search_freeday] })
+     .where(Freeday.arel_table[:begin].lteq(session[:search_freeday]))
+     .where(Freeday.arel_table[:end].gteq(session[:search_freeday]))
 
-    @users.each do |u_score|
-      @lecture_id = u_score.id
-    end
-
-    @users_status = User.joins(:freeday, skill: {skill_master: :status})
-      .select('users.*,freedays.begin,freedays.end,skill_masters.skilltype,statuses.score')
-      .where( skills: { skill_master_id: session[:search_skill] })
-      .where( freedays: { begin: session[:search_freeday] })
-      .where( statuses: { user_id: @lecture_id })
   end
 
   def result

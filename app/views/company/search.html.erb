@@ -12,37 +12,6 @@
 <% if @users.length == 0 then %>
 <%="検索してください。または条件に該当する講師がおりません" %>
 <% else %>
-
-
-<!-- 評価の平均をだす方法をきく -->
-<%= @id = [] %>
-<%= @name = [] %>
-<%= @score = [] %>
-<%= @users_status.each do |lecture| %>
-  <% @id.push(lecture.id).uniq! %>
-  <% @name.push(lecture.name).uniq! %>
-  <% @score.push(lecture.score) %>
-  <% @score.sum %>
-<% end %>
-
-<table border="1">
-  <tr>
-    <td>講師名</td>
-    <td>評価</td>
-  </tr>
-  <tr>
-  <%= @name.each do |name| %>
-    <td><%= name %></td>
-  <% end %>
-  <td><%= @score.sum %></td>
-  </tr>
-</table>
-
-
-
-
-
-<%= @users.each do |user| %>
 <table border="1">
   <tr>
     <td>講師名</td>
@@ -52,6 +21,7 @@
     <td>言語</td>
     <td>申請</td>
   </tr>
+  <%= @users.each do |user| %>
   <tr>
     <td><%= user.name %></td>
     <td><%= user.tel %></td>
@@ -59,9 +29,7 @@
     <td><%= user.begin %></td>
     <td><%= user.skilltype %></td>
     <td><%= link_to '講師に申請する', company_result_path(id: user.id), method: :result, data: { confirm: '講師'+user.name+'さんに申請しますか？' } %></td>
+  </tr>
+  <% end %>
 </table>
-<% end %><br>
-
-
-
 <% end %>
