@@ -92,7 +92,7 @@
       <td><%= key.name %></td>
       <td><%= key.skilltype %></td>
       <td><%= key.date %></td>
-      <td><%= select_tag "statusID"+ key.id.to_s, options_for_select([0, 1, 2, 3, 4, 5]) %></td>
+      <td><%= select_tag key.id, options_for_select([0, 1, 2, 3, 4, 5]) %></td>
       <td><%= submit_tag '評価する' %></td>
     </tr>
 

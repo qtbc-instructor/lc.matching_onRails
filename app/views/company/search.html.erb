@@ -14,25 +14,24 @@
 <%="検索してください。または条件に該当する講師がおりません" %>
 <% else %>
 
-<table border="1">
-  <tr>
-    <td>講師名</td>
-    <td>評価</td>
-  </tr>
-  <tr>
-    <td><%= @hyouka.name %></td>
-    <td><%= @total %></td>
-  </tr>
-</table>
+<%= @users_status.each do |lecture| %>
+  <table border="1">
+    <tr>
+      <td>ID</td>
+      <td>講師名</td>
+      <td>評価</td>
+    </tr>
+    <tr>
+      <td><%= lecture.id %></td>
+      <td><%= lecture.name %></td>
+      <td><%= lecture.score/@users_status.length %></td>
+    </tr>
+  </table>
+<% end %>
 
 
-<%= @score.each do |score| %>
-<% score.user_id %>
-<%= score.score %>
-<% end %><br>
 
 <%= @users.each do |user| %>
-  <%= check_box :checkbox, id: '' , :as => :boolean %><br>
 <table border="1">
   <tr>
     <td>ID</td>
@@ -50,7 +49,7 @@
     <td><%= user.mail_address %></td>
     <td><%= user.begin %></td>
     <td><%= user.skilltype %></td>
-    <td><%= link_to '講師に申請する', company_result_path(id: user.id), method: :result, data: { confirm: 'Are you sure?' } %></td>
+    <td><%= link_to '講師に申請する', company_result_path(id: user.id), method: :result, data: { confirm: '講師'+user.name+'さんに申請しますか？' } %></td>
 </table>
 <% end %><br>
 

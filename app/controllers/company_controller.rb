@@ -2,7 +2,6 @@ class CompanyController < ApplicationController
 
 # 評価の平均を講師の横にだす
 
-  before_action :set_book, only: [:show, :edit, :update, :destroy]
 
   # GET /books
   # GET /books.json
@@ -56,40 +55,57 @@ class CompanyController < ApplicationController
   # end
 
   def update
-    @status_score = Status.find(params[:id.to_i])
-    @score = @status_score.score
-    respond_to do |score|
-      if @score.update(update)
-        score.html { redirect_to @score, notice: '評価されました。'}
-        score.json { render :index, status: :ok, location: @score}
-      else
-        score.html { render :index }
-        score.json { render json: @score.errors, status: :unprocessable_entity }
-      end
-    end
-    redirect_to "/company", action: :update
+    # @a=params[:key]
+    # @b = Status.select('id,score').where(id: @a)
+    # @b.each do |f|
+    #   @c = f.id
+    # end
+    u=Status.find(6).update_attributes(score:5)
   end
+    # @status_score = Status.find(params[:id]
+    #
+    # respond_to do |score|
+    #   if @score.update(update)
+    #     score.html { redirect_to @score, notice: '評価されました。'}
+    #     score.json { render :index, status: :ok, location: @score}
+    #   else
+    #     score.html { render :index }
+    #     score.json { render json: @score.errors, status: :unprocessable_entity }
+    #   end
+    # end
+    # redirect_to "/company", action: :update
+
 
   def search
     #Viewで検索条件表示に使用
     @skill_masters = SkillMaster.all
 
-    #検索条件を設定
-    # @search_skill = params[:skill]
-    # @date = params[:begin]
-
     session[:search_skill] = params[:skill]
     session[:search_freeday] = params[:begin]
-
-    # @search_skill = session[:search_skill]
-    # @date = session[:search_freeday]
-
 
     #検索実行
     @users = User.joins(:freeday, skill: :skill_master)
      .select('users.*,freedays.begin,freedays.end,skill_masters.skilltype')
-    .where( skills: { skill_master_id: session[:search_skill] })
-    .where(freedays: { begin: session[:search_freeday] })
+     .where( skills: { skill_master_id: session[:search_skill] })
+     .where(freedays: { begin: session[:search_freeday] })
+
+    @users.each do |u_score|
+      @lecture_id = u_score.id
+    end
+
+    @users_status = User.joins(:freeday, skill: {skill_master: :status})
+      .select('users.*,freedays.begin,freedays.end,skill_masters.skilltype,statuses.score')
+      .where( skills: { skill_master_id: session[:search_skill] })
+      .where( freedays: { begin: session[:search_freeday] })
+      .where( statuses: { user_id: @lecture_id })
+
+    # 講師を取り出す
+    # @users.each do |lecture|
+    #   @lecture_id = lecture.id
+    #   @lecture_name = lecture.name
+    #   @lecture_score = lecture.score
+    # end
+
 
     # @users = User.joins(:freeday, skill: {skill_master: :status})
     #  .select('users.*,freedays.begin,skill_masters.skilltype,statuses.score,statuses.status_master_id')
@@ -99,22 +115,22 @@ class CompanyController < ApplicationController
     # .where(statuses: {status_master_id: nil})
 
 
-    @score = Status.select('id,user_id,skill_master_id,date,score')
-      .where(user_id: 2)
-      .where(date: @date)
-      .where(skill_master_id: @search_skill)
-
-      @score.each do |id|
-        @name = id.id
-        if @name.present? then
-
-        else
-          @total = 0
-          @total += id.score
-        end
-      end
-
-    @hyouka = User.select('name').where(id: @name)
+    # @score = Status.select('id,user_id,skill_master_id,date,score')
+    #   .where(user_id: 2)
+    #   .where(date: @date)
+    #   .where(skill_master_id: @search_skill)
+    #
+    #   @score.each do |id|
+    #     @name = id.id
+    #     if @name.present? then
+    #
+    #     else
+    #       @total = 0
+    #       @total += id.score
+    #     end
+    #   end
+    #
+    # @hyouka = User.select('name').where(id: @name)
   end
 
   def result
