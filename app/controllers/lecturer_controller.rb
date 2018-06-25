@@ -4,10 +4,15 @@ class LecturerController < ApplicationController
     # @users = User.find(12)
     @users = @usr
     @user = @users.id
+    
+    @application = Status.where(user_id: @user).where(status_master_id: 1)
+    @plans = Status.where(user_id: @user).where(status_master_id: 2)
+    
     @freedays = Freeday.where(user_id: @user)
     @skills = Skill.where(user_id: @user)
     @freedays = Freeday.where(user_id: @usr)
     @newfreeday = Freeday.new
+    
     @skills = Skill.where(user_id: @usr).order(:skill_master_id)
     skill_ids=[]
     @skills.each do |f|
