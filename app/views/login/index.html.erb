@@ -1,11 +1,16 @@
+<!-- エラーメッセージ -->
 <p style="color: Red"><%= @error %></p>
+<!-- 登録完了メッセージ -->
+<p><%= notice %></p>
+
+<!-- ログインフォーム -->
 <%= form_tag action: :auth do %>
   <div class="field">
-    <%= label_tag :mail_address, 'メールアドレス' %><br />
+    <%= label_tag :mail_address, 'メールアドレス' %><br>
     <%= text_field_tag :mail_address ,'', size: 20 %>
   </div>
   <div class="field">
-    <%= label_tag :password, 'パスワード' %><br />
+    <%= label_tag :password, 'パスワード' %><br>
     <%= password_field_tag :password, '', size: 20 %>
   </div>
   <!--ログイン後にリダイレクトすべきアクションを隠しフィールドにセット-->
@@ -17,5 +22,5 @@
 <div>
   新規登録はコチラ
   <%= link_to '講師用' , controller: "users", action: "new", usertype: 0 %>
-  <%= link_to '企業用' , controller: "users", action: "new",  usertype: 1 %>
+  <%= link_to '企業用' , controller: "users", action: "new", usertype: 1 %>
 </div>
