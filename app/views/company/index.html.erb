@@ -1,7 +1,10 @@
 <p id="notice"><%= notice %></p>
-
-
 <h1>ようこそ</h1>
+
+<table>
+  <tr> <th align='left'>企業ID</th> <td><%= @usr.id %></td> </tr>
+  <tr> <th align='left'>企業名</th> <td><%= @usr.name %></td> </tr>
+</table>
 
 <!-- 申請中 -->
 <h3>申し込み中</h3>
@@ -101,10 +104,5 @@
 </tbody>
 <p><%= submit_tag '評価する' %></p>
 </table>
-<<<<<<< HEAD
-<%= button_to '検索ページへ', '/company/search' %>
-<%= button_to 'ログアウトする','/logout' %>
-=======
 
 <%= link_to '検索ページへ', '/company/search' %>
->>>>>>> goto2
