@@ -37,7 +37,6 @@ class CompanyController < ApplicationController
         s.errors.messages
       end
     end
-
     logger.debug "=========================================="
     redirect_to "/company", action: :update
   end
