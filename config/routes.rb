@@ -25,7 +25,7 @@ Rails.application.routes.draw do
   get '/company/result', controller: 'company', action: 'result'
   delete '/company/destroy/:id', controller: 'company', action: 'destroy'
   post '/company/', controller: 'company', action: 'update'
-
+  post '/company/', controller: 'company', action: 'update2'
 
 
   #resources :lecturer
