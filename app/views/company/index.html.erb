@@ -23,7 +23,7 @@
         <td><%= applying.name %></td>
         <td><%= applying.skilltype %></td>
         <td><%= applying.date %></td>
-        <td><%= link_to '取り消し', "/company/destroy/" + applying.id.to_s, method: :delete %></td>
+        <td><%= link_to '取り消し', "/company/destroy/" + applying.id.to_s, method: :delete, data: { confirm: '講師'+applying.name+'さんに申請しますか？' } %></td>
       </tr>
     <% end %>
   </tbody>
@@ -31,7 +31,7 @@
 
 <!-- 承認待ち -->
 <h3>承認済み</h3>
-<p>＊終了した講師は確認ボタンを押して更新してください</p>
+<p>＊終了した講師は講義終了ボタンを押して更新してください</p>
 <table border="5" frame="box">
 <thead>
   <tr>
@@ -47,7 +47,7 @@
       <td><%= approval.name %></td>
       <td><%= approval.skilltype %></td>
       <td><%= approval.date %></td>
-      <td><%= link_to '確認', "/company/" + approval.id.to_s, method: :update2 %></td>
+      <td><%= link_to '講義終了', "/company/" + approval.id.to_s, method: :update2 %></td>
     </tr>
   <% end %>
 </tbody>
