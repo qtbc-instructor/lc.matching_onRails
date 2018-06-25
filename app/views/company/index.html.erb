@@ -5,7 +5,6 @@
   <tr> <th align='left'>企業ID</th> <td><%= @usr.id %></td> </tr>
   <tr> <th align='left'>企業名</th> <td><%= @usr.name %></td> </tr>
 </table>
-
 <!-- 申請中 -->
 <h3>申し込み中</h3>
   <table border="5" frame="box">
@@ -100,9 +99,10 @@
       <td><%= select_tag "statusID"+ key.id.to_s, options_for_select([0, 1, 2, 3, 4, 5]) %></td>
     </tr>
   <% end %>
-  <% end %>
 </tbody>
-<p><%= submit_tag '評価する' %></p>
 </table>
+<p><%= submit_tag '評価する' %></p>
+<% end %>
 
-<%= link_to '検索ページへ', '/company/search' %>
+<%= button_to '検索ページへ', '/company/search' %>
+<%= button_to 'ログアウトする','/logout' %>
