@@ -1,17 +1,18 @@
 <h1><div class="lecturerMyPageText">講師マイページ</div></h1>
 <div class="blockA">
-<div class="msg">
-  メッセージ：
-  <% if flash.empty? then %>
-    なし
-  <% else %>
-    <%= flash.now[:notice] %>
-  <% end %>
-</div>
+  <div class="msg">
+    メッセージ：
+    <% if flash.empty? then %>
+      なし
+    <% else %>
+      <%= flash.now[:notice] %>
+    <% end %>
+  </div>
 
   <!-- 講師情報 -->
+  <table>
     <tr><th>講師ID</th><th>講師名</th><th>平均評価</th></tr>
-    <td><%= @usr.id %></td><td><%= @usr.name %></td><td><%= @status.present? ? @status.average(:score) : 'なし'  %></td></tr>
+    <td><%= @usr.id %></td><td><%= @usr.name %></td><td><%= @status.present? ? @status.average(:score).round(2) : 'なし'  %></td></tr>
   </table>
 
   <!-- 期間登録 -->
@@ -19,9 +20,9 @@
     <%= f.hidden_field :user_id, :value => @usr.id %>
     <%= f.date_field :begin  %> 〜 <%= f.date_field :end  %>
     <div class="entryDaysButton">
-    <%= f.submit '期間登録' %>
+      <%= f.submit '期間登録' %>
   <% end %>
-  </div>
+    </div>
 
   <!-- スキル登録 -->
   <% if @addskills.present? then %>
@@ -136,7 +137,7 @@
     </tr>
   <% end %>
 </table>
-<%= submit_tag '認証する',date: {confirm: =>'認証しますか？'} %>
+<%= submit_tag '認証する',data: {confirm: '認証しますか？'} %>
 <% end %>
 <% else %>
 <p>申請はありません</p>
