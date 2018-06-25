@@ -1,11 +1,14 @@
 <p id="notice"><%= notice %></p>
-
-
 <h1>ようこそ</h1>
+
+<table>
+  <tr> <th align='left'>企業ID</th> <td><%= @usr.id %></td> </tr>
+  <tr> <th align='left'>企業名</th> <td><%= @usr.name %></td> </tr>
+</table>
 
 <!-- 申請中 -->
 <h3>申し込み中</h3>
-  <table border="5" frame="box">
+  <table border="5" frame="box" class="offerTable">
   <thead>
     <tr>
       <th>名前</th>
@@ -20,7 +23,7 @@
         <td><%= applying.name %></td>
         <td><%= applying.skilltype %></td>
         <td><%= applying.date %></td>
-        <td><%= link_to '取り消し', "/company/destroy/" + applying.id.to_s, method: :delete %></td>
+        <td><%= link_to '取り消し', "/company/destroy/" + applying.id.to_s, method: :delete, data: { confirm: '講師'+applying.name+'さんの申請を取り消しますか？' } %></td>
       </tr>
     <% end %>
   </tbody>
@@ -28,7 +31,9 @@
 
 <!-- 承認待ち -->
 <h3>承認済み</h3>
+<p>＊終了した講師は講義終了ボタンを押して更新してください</p>
 <table border="5" frame="box">
+<table border="5" frame="box" class="approvalTable">
 <thead>
   <tr>
     <th>名前</th>
@@ -44,15 +49,15 @@
       <td><%= approval.skilltype %></td>
       <td><%= approval.date %></td>
       <td><%= submit_tag '確認' %></td>
+      <td><%= link_to '講義終了', "/company/" + approval.id.to_s, method: :update2 %></td>
     </tr>
   <% end %>
 </tbody>
 </table>
 
-
 <!-- 拒否 -->
 <h3>拒否されました。</h3>
-<table border="5" frame="box">
+<table border="5" frame="box" class="denialTable">
 <thead>
   <tr>
     <th>名前</th>
@@ -76,7 +81,7 @@
 
 <!-- 評価待ち -->
 <h3>評価してください。</h3>
-<table border="5" frame="box">
+<table border="5" frame="box" class="scoreTable">
 <thead>
   <tr>
     <th>名前</th>
@@ -94,11 +99,12 @@
       <td><%= key.skilltype %></td>
       <td><%= key.date %></td>
       <td><%= select_tag "statusID"+ key.id.to_s, options_for_select([0, 1, 2, 3, 4, 5]) %></td>
-      <td><%= submit_tag '評価する' %></td>
     </tr>
-
   <% end %>
   <% end %>
 </tbody>
+<p><%= submit_tag '評価する' %></p>
 </table>
-<%= link_to '検索ページへ', '/company/search' %>
+
+<%= button_to '検索ページへ', '/company/search' %>
+<%= button_to 'ログアウトする','/logout' %>

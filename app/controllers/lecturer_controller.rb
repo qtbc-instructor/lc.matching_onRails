@@ -3,6 +3,7 @@ class LecturerController < ApplicationController
   def index
     @freedays = Freeday.where(user_id: @usr).order(begin: "ASC")
     @new_freeday = Freeday.new
+    @newfreeday = Freeday.new
     @skills = Skill.where(user_id: @usr).order(:skill_master_id)
     skill_ids=[]
     @skills.each do |f|
@@ -10,6 +11,8 @@ class LecturerController < ApplicationController
     end
     @add_skills = SkillMaster.where.not(id: skill_ids)
     @status = Status.where(user_id: @usr,status_master_id: 5).limit(10).order(id: "DESC")
+    @addskills = SkillMaster.where.not(id: skill_ids)
+    @status = Status.where(user_id: @usr.id,status_master_id: 5).order(id: "DESC")
   end
 
   def create_free
@@ -27,6 +30,15 @@ class LecturerController < ApplicationController
         end
       else
         flash[:notice] = '日付が重複しています'
+    freeday = Freeday.new(freeday_params)
+
+    if freeday.begin.nil? || freeday.end.nil? then
+      flash[:notice] = '日付を入力してください'
+    elsif freeday.begin < freeday.end then
+      if freeday.save then
+        flash[:notice] = '申請受付期間を登録しました'
+      else
+        flash[:notice] = '申請受付期間の登録に失敗しました'
       end
     else
       flash[:notice] = '初日〜最終日で入力してください'

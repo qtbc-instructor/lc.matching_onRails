@@ -4,4 +4,4 @@
 <%= render 'form', user: @user %>
 
 <!--戻るボタン(戻り先はログイン画面)-->
-<%= link_to '戻る', login_index_path %>
+<%= button_to "戻る", {controller: 'login', action: 'logout'}, {method: :get, class: "btn btn-default"} %>
