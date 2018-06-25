@@ -49,17 +49,42 @@ class CompanyController < ApplicationController
   # end
 
   def update
-    @status_score = Status.find(params[:id.to_i])
-    @score = @status_score.score
-    respond_to do |score|
-      if @score.update(update)
-        score.html { redirect_to @score, notice: '評価されました。'}
-        score.json { render :index, status: :ok, location: @score}
-      else
-        score.html { render :index }
-        score.json { render json: @score.errors, status: :unprocessable_entity }
+
+    logger.debug "=========================================="
+    # 評価更新
+    params.each do |key,value|
+      if key[0,8] == "statusID"
+        id = key[8,10].to_i
+        s = Status.find(id)
+        s.score = value
+        s.status_master_id = 5
+        s.save
+        s.errors.messages
       end
     end
+    logger.debug "=========================================="
+    # @a = params[:id]
+    # @u = Status.find(@a)
+    # @score = @u.update(score:5)
+    # redirect_to "/company", action: :update
+
+    # @getId = Status.find(params[:id])
+    # @getId.each do |state|
+    #   @status_id = state.id
+    #   @status_score = state.score
+    # end
+
+    # @status_score = Status.where(params[:id])
+    # @score = @status_score.update(score:5)
+    # respond_to do |score|
+    #   if @score.update(update)
+    #     score.html { redirect_to @score, notice: '評価されました。'}
+    #     score.json { render :search, status: :ok, location: @score}
+    #   else
+    #     score.html { render :search }
+    #     score.json { render json: @score.errors, status: :unprocessable_entity }
+    #   end
+    # end
     redirect_to "/company", action: :update
   end
 end
