@@ -1,7 +1,13 @@
 class CompanyController < ApplicationController
+
+# 評価の平均を講師の横にだす
+
+
+  # GET /books
+  # GET /books.json
   def index
     @Applyings = Status.joins(:user, :skill_master).select('statuses.id, users.name, skill_masters.skilltype, statuses.date').where("status_master_id = ?", 1)
-    @Approval = Status.joins(:user, :skill_master).select('statuses.id, users.name, skill_masters.skilltype, statuses.date').where("status_master_id = ?", 2)
+    @Approval = Status.joins(:user, :skill_master).select('users.name, skill_masters.skilltype, statuses.date').where("status_master_id = ?", 2)
     @Denial = Status.joins(:user, :skill_master).select('statuses.id, users.name, skill_masters.skilltype, statuses.date').where("status_master_id = ?", 3)
     @Score = Status.joins(:user, :skill_master).select('statuses.id, users.name, skill_masters.skilltype, statuses.date, statuses.score').where("status_master_id = ?", 4)
 
@@ -20,24 +26,51 @@ class CompanyController < ApplicationController
     end
   end
 
+
   def update
 
-    logger.debug "=========================================="
-    # 評価更新
-    params.each do |key,value|
-      if key[0,8] == "statusID"
-        id = key[8,10].to_i
-        s = Status.find(id)
-        s.score = value
-        s.status_master_id = 5
-        s.save
-        s.errors.messages
-      else
-        id = key[0,10].to_i
-        h = Status.find(id)
-        h.status_master_id = 4
-        h.save
-      end
+     logger.debug "=========================================="
+     # 評価更新
+     params.each do |key,value|
+       if key[0,8] == "statusID"
+         id = key[8,10].to_i
+         s = Status.find(id)
+         s.score = value
+         s.status_master_id = 5
+         s.save
+         s.errors.messages
+       else
+         id = key[0,10].to_i
+         h = Status.find(id)
+         h.status_master_id = 4
+         h.save
+       end
+     end
+
+     @users_status = User.joins(:freeday, skill: {skill_master: :status})
+       .select('users.*,freedays.begin,freedays.end,skill_masters.skilltype,statuses.score')
+       .where( skills: { skill_master_id: session[:search_skill] })
+       .where( freedays: { begin: session[:search_freeday] })
+       .where( statuses: { user_id: @lecture_id })
+
+   end
+
+
+  def search
+    #Viewで検索条件表示に使用
+    @skill_masters = SkillMaster.all
+
+    session[:search_skill] = params[:skill]
+    session[:search_freeday] = params[:begin]
+
+    #検索実行
+    @users = User.joins(:freeday, skill: :skill_master)
+     .select('users.*,freedays.begin,freedays.end,skill_masters.skilltype')
+     .where( skills: { skill_master_id: session[:search_skill] })
+     .where(freedays: { begin: session[:search_freeday] })
+
+    @users.each do |u_score|
+      @lecture_id = u_score.id
     end
 
     @users_status = User.joins(:freeday, skill: {skill_master: :status})
@@ -76,7 +109,5 @@ class CompanyController < ApplicationController
      flash[:notice] = "講師に申請できませんでした。"
      redirect_to :action => "search"
    end
-    logger.debug "=========================================="
-    redirect_to "/company", action: :update
   end
 end
