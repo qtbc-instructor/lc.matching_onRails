@@ -2,10 +2,6 @@ class CompanyController < ApplicationController
 
 # 評価の平均を講師の横にだす
 
-  before_action :set_book, only: [:show, :edit, :update, :destroy]
-
-  # GET /books
-  # GET /books.json
   def index
     @Applyings = Status.joins(:user, :skill_master).select('statuses.id, users.name, skill_masters.skilltype, statuses.date').where("status_master_id = ?", 1)
     @Approval = Status.joins(:user, :skill_master).select('users.name, skill_masters.skilltype, statuses.date').where("status_master_id = ?", 2)
@@ -19,7 +15,11 @@ class CompanyController < ApplicationController
     @usr = @user.id
   end
 
+  # ----------------------------------
+  # 取り消し　又は　確認削除
+  # ----------------------------------
   def destroy
+    @status_id = Status.find(params[:id])
     @status_id.destroy
     respond_to do |status|
       status.html { redirect_to "/company", notice: '削除されました。'}
@@ -27,6 +27,10 @@ class CompanyController < ApplicationController
     end
   end
 
+
+  # ======================================
+  # 評価の更新
+  # ======================================
   # def update
   #
   #   @score = Status.joins(:user, :skill_master).select('statuses.id, users.name, skill_masters.skilltype, statuses.date, statuses.score').where("status_master_id = ?", 4)
