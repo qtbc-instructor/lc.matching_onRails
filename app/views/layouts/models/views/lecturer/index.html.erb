@@ -1,0 +1,35 @@
+<h1>講師マイページ</h1>
+<%= notice %>
+
+<table>
+  <tr> <th>講師ID</th> <td><%= @user %></td> </tr>
+  <tr> <th>講師名</th> <td><%= @users.name %></td> </tr>
+</table>
+
+<table border="1" style="float:left">
+  <th>登録日</th>
+<% @freedays.each do |f|  %>
+  <tr>
+    <td> <%= f.begin %>〜<%= f.end %></td>
+  </tr>
+<% end %>
+</table>
+
+
+  <table border="1" >
+    <th>登録日追加</th>
+    <tr>
+      <td>  </td>
+    </tr>
+  </table>
+
+
+
+<table border="1">
+  <th>登録スキル</th>
+<% @skills.each do |f|  %>
+  <tr>
+    <td><%= f.skill_master.skilltype %></td>
+  </tr>
+<% end %>
+</table>
