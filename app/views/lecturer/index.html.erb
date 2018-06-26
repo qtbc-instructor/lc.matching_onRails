@@ -23,7 +23,7 @@
   <!-- スキル登録 -->
   <% if @add_skills.present? then %>
     <%= form_tag action: :add_skill do %>
-      <%= select_tag :addskill, options_from_collection_for_select(@addskills ,:id ,:skilltype ) %>
+      <%= select_tag :addskill, options_from_collection_for_select(@add_skills ,:id ,:skilltype ) %>
       <%= submit_tag 'スキル登録' %>
     <% end %>
   <% end %>

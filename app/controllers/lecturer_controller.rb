@@ -9,7 +9,7 @@ class LecturerController < ApplicationController
       skill_ids.push(f.skill_master_id)
     end
     @add_skills = SkillMaster.where.not(id: skill_ids)
-    @status = Status.where(user_id: @usr,status_master_id: 5).order(id: "DESC")
+    @status = Status.where(user_id: @usr,status_master_id: 5).limit(10).order(id: "DESC")
   end
 
   def create_free
@@ -18,8 +18,8 @@ class LecturerController < ApplicationController
     if new_freeday.begin.nil? || new_freeday.end.nil? then
       flash[:notice] = '日付を入力してください'
     elsif new_freeday.begin < new_freeday.end then
-      #duplicates = Freeday.where(user_id: @usr).where(Freeday.arel_table[:begin].lteq(new_freeday.end)).where(Freeday.arel_table[:end].gteq(new_freeday.begin))
-      if true then
+      duplicates = Freeday.where(user_id: @usr).where(Freeday.arel_table[:begin].lteq(new_freeday.end)).where(Freeday.arel_table[:end].gteq(new_freeday.begin))
+      if duplicates.empty? then
         if new_freeday.save then
           flash[:notice] = '申請受付期間を登録しました'
         else
