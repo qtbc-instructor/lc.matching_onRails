@@ -5,12 +5,12 @@ class LecturerController < ApplicationController
     # @user = @usr.id
     @application = Status.where(user_id: @usr).where(status_master_id: 1)
     @plans = Status.where(user_id: @usr).where(status_master_id: 2)
-    
+
     # @freedays = Freeday.where(user_id: @user)
     # @skills = Skill.where(user_id: @user)
     @freedays = Freeday.where(user_id: @usr)
     @newfreeday = Freeday.new
-    
+
     @skills = Skill.where(user_id: @usr).order(:skill_master_id)
     skill_ids=[]
     @skills.each do |f|
@@ -23,7 +23,7 @@ class LecturerController < ApplicationController
   def create_free
     freeday_params = params.require(:freeday).permit(:user_id,:begin,:end)
     freeday = Freeday.new(freeday_params)
-    
+
     if freeday.begin.nil? || freeday.end.nil? then
       flash[:notice] = '日付を入力してください'
     elsif freeday.begin < freeday.end then
@@ -53,14 +53,6 @@ class LecturerController < ApplicationController
         end
       rescue
         flash[:notice] = '削除する受付期間が選択されていません'
-=======
-    begin
-      days = params.require(:freeday_id)
-      if Freeday.destroy(days) then
-        flash[:notice] = '受付期間を削除しました'
-      else
-        flash[:notice] = '受付期間の削除に失敗しました'
->>>>>>> a416f49f30d9b4bbce1aa8f01adc562c9d2ca4eb
       end
     redirect_to :action => "index"
   end
@@ -93,23 +85,6 @@ class LecturerController < ApplicationController
     end
     redirect_to :action => "index"
   end
-<<<<<<< HEAD
-  
-  def update    
-    @users = User.find(session[:usr])
-    @user = @users.id
-    
-    if params[:status].match(/2,*/) then
-      
-    elsif  params[:status].match(/3,*/) then
-      
-    end
-    
-  end
-  
-  
-  
-=======
 
   def update
     @users = User.find(session[:usr])
@@ -120,19 +95,9 @@ class LecturerController < ApplicationController
     elsif  params[:status].match(/3,*/) then
 
     end
-
-    session[:test] = "updateメソッドの実行"
     redirect_to action: :index
-
-
-     #user = Status.find(@user)
-    #user.status_master_id = 2
-    #user.save
-
 
   end
 
 
->>>>>>> a416f49f30d9b4bbce1aa8f01adc562c9d2ca4eb
 end
-
