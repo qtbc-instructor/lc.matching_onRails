@@ -108,7 +108,8 @@
 <hr style="clear:left">
 
 <h3>通知</h3>
-<% if !@application.blank? then %> 
+<% if !@application.blank? then %>
+<% form_tag('/update', method: :post) do %>
 <table border="1">
   <tr>
     <td>認証</td>
@@ -117,8 +118,7 @@
     <td>スキル</td>
     <td>日付</td>
   </tr>
-  <% form_tag('/update', method: :post) do %>
-  <% @application.each do |f| %> 
+  <% @application.each do |f| %>
     <tr>
       <td><%= radio_button ':status', 'selected', '2', {} %><br /></td>
       <td><%= radio_button ':status', 'selected', '3', {} %><br /></td>
@@ -129,11 +129,11 @@
   <% end %>
 </table>
 
-  <%= submit_tag('認証する'{ confirm: '認証しますか？'}) %>
+  <%= submit_tag '認証する',date:{ confirm: '認証しますか？'} %>
 <% else %>
 <p>申請はありません</p>
-<% end %> 
-<% end %> 
+<% end %>
+<% end %>
 
 <h3>予定</h3>
 <% if !@plans.blank? then %>
@@ -143,7 +143,7 @@
     <td>スキル</td>
     <td>日付</td>
   </tr>
-  <% @plans.each do |f| %> 
+  <% @plans.each do |f| %>
     <tr>
       <td><%= f.company.companyname %></td>
       <td>
@@ -154,7 +154,7 @@
       <td><%= f.date %></td>
     </tr>
   <% end %>
-</table>    
+</table>
 <% else %>
  <p>予定はありません<p>
 <% end %>
