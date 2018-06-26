@@ -10,7 +10,7 @@
   <table>
     <tr> <th align='left'>講師ID</th> <td><%= @usr.id %></td> </tr>
     <tr> <th align='left'>講師名</th> <td><%= @usr.name %></td> </tr>
-    <tr> <th align='left'>平均評価</th> <td><%= @status.average(:score)  %></td> </tr>
+    <tr> <th align='left'>平均評価</th> <td><%= @status.present? ? @status.average(:score) : 'なし' %></td> </tr>
   </table>
 
   <!-- 期間登録 -->
@@ -157,3 +157,4 @@
 <% else %>
  <p>予定はありません<p>
 <% end %>
+<%= link_to "ログイン画面へ", {:controller => "login", :action => "index"} %>

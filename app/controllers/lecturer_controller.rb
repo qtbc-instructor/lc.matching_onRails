@@ -26,12 +26,11 @@ class LecturerController < ApplicationController
           flash[:notice] = '申請受付期間の登録に失敗しました'
         end
       else
-        flash[:notice] = '日付が重複しています'
+        flash[:notice] = '期間が重複しています'
       end
     else
       flash[:notice] = '初日〜最終日で入力してください'
     end
-
     redirect_to :action => "index"
   end
 
