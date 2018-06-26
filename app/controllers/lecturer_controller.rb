@@ -92,9 +92,6 @@ class LecturerController < ApplicationController
     redirect_to action: :index
 
 
-     #user = Status.find(@user)
-    #user.status_master_id = 2
-    #user.save
 
 
   end
