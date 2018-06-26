@@ -29,6 +29,7 @@ Rails.application.routes.draw do
   #resources :lecturer
 
   get 'lecturer/index'
+  post 'lecturer/update'
 
   #LECTURER ROUTES
   post 'lecturer/newfreeday' => 'lecturer#create_free'

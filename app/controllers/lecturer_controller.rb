@@ -84,14 +84,17 @@ class LecturerController < ApplicationController
   end
 
   def update
-    
+
     if params[:status].match(/2,*/) then
-       @authentication = params[:status].delete("2.")
-       Status.where('skilltype LIKE ', @authentication).update_all(:status_master_id => 2)
+       @authentication = params[:status].delete("2,")
+       Status.where(user_id: @usr).where(skill_master_id: @authentication).update(status_master_id: 2)
+
+       # @users = Status.where(user_id: @user).where('skilltype LIKE', @authentication)
 
     elsif  params[:status].match(/3,*/) then
-       @rejection = params[:status].delete("3.")
-       Status.where('skilltype LIKE ', @rejection).update_all(:status_master_id => 2)
+       @rejection = params[:status].delete("3,")
+       Status.where(user_id: @usr).where(skill_master_id: @rejection).update(status_master_id: 3)
+
     end
     redirect_to action: :index
 
