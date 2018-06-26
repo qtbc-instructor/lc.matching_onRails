@@ -2,37 +2,35 @@ class LecturerController < ApplicationController
 
   def index
 
-    # @usr = User.find(session[:usr])
-    # @user = @usr.id
     @application = Status.where(user_id: @usr).where(status_master_id: 1)
     @plans = Status.where(user_id: @usr).where(status_master_id: 2)
 
-    # @freedays = Freeday.where(user_id: @user)
-    # @skills = Skill.where(user_id: @user)
-
     @freedays = Freeday.where(user_id: @usr).order(begin: "ASC")
-    @newfreeday = Freeday.new
-
+    @new_freeday = Freeday.new
     @skills = Skill.where(user_id: @usr).order(:skill_master_id)
     skill_ids=[]
     @skills.each do |f|
       skill_ids.push(f.skill_master_id)
     end
-    @addskills = SkillMaster.where.not(id: skill_ids)
-    @status = Status.where(user_id: @usr.id,status_master_id: 5).order(id: "DESC")
+    @add_skills = SkillMaster.where.not(id: skill_ids)
+    @status = Status.where(user_id: @usr,status_master_id: 5).limit(10).order(id: "DESC")
   end
 
   def create_free
     freeday_params = params.require(:freeday).permit(:user_id,:begin,:end)
-    freeday = Freeday.new(freeday_params)
-
-    if freeday.begin.nil? || freeday.end.nil? then
+    new_freeday = Freeday.new(freeday_params)
+    if new_freeday.begin.nil? || new_freeday.end.nil? then
       flash[:notice] = '日付を入力してください'
-    elsif freeday.begin < freeday.end then
-      if freeday.save then
-        flash[:notice] = '申請受付期間を登録しました'
+    elsif new_freeday.begin < new_freeday.end then
+      duplicates = Freeday.where(user_id: @usr).where(Freeday.arel_table[:begin].lteq(new_freeday.end)).where(Freeday.arel_table[:end].gteq(new_freeday.begin))
+      if duplicates.empty? then
+        if new_freeday.save then
+          flash[:notice] = '申請受付期間を登録しました'
+        else
+          flash[:notice] = '申請受付期間の登録に失敗しました'
+        end
       else
-        flash[:notice] = '申請受付期間の登録に失敗しました'
+        flash[:notice] = '期間が重複しています'
       end
     else
       flash[:notice] = '初日〜最終日で入力してください'
@@ -84,20 +82,14 @@ class LecturerController < ApplicationController
   end
 
   def update
-
     if params[:status].match(/2,*/) then
        @authentication = params[:status].delete("2,")
        Status.where(user_id: @usr).where(skill_master_id: @authentication).update(status_master_id: 2)
-
-       # @users = Status.where(user_id: @user).where('skilltype LIKE', @authentication)
-
     elsif  params[:status].match(/3,*/) then
        @rejection = params[:status].delete("3,")
        Status.where(user_id: @usr).where(skill_master_id: @rejection).update(status_master_id: 3)
-
     end
     redirect_to action: :index
-
   end
 
 end

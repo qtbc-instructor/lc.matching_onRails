@@ -10,20 +10,20 @@
   <table>
     <tr> <th align='left'>講師ID</th> <td><%= @usr.id %></td> </tr>
     <tr> <th align='left'>講師名</th> <td><%= @usr.name %></td> </tr>
-    <tr> <th align='left'>平均評価</th> <td><%= @status.average(:score)  %></td> </tr>
+    <tr> <th align='left'>平均評価</th> <td><%= @status.present? ? @status.average(:score) : 'なし' %></td> </tr>
   </table>
 
   <!-- 期間登録 -->
-  <%= form_for(@newfreeday, :url => {:action => 'create_free'} ,method: :post) do |f| %>
+  <%= form_for(@new_freeday, :url => {:action => 'create_free'} ,method: :post) do |f| %>
     <%= f.hidden_field :user_id, :value => @usr.id %>
     <%= f.date_field :begin  %> 〜 <%= f.date_field :end  %>
     <%= f.submit '期間登録' %>
   <% end %>
 
   <!-- スキル登録 -->
-  <% if @addskills.present? then %>
+  <% if @add_skills.present? then %>
     <%= form_tag action: :add_skill do %>
-      <%= select_tag :addskill, options_from_collection_for_select(@addskills ,:id ,:skilltype ) %>
+      <%= select_tag :addskill, options_from_collection_for_select(@add_skills ,:id ,:skilltype ) %>
       <%= submit_tag 'スキル登録' %>
     <% end %>
   <% end %>
@@ -156,3 +156,4 @@
 <% else %>
  <p>予定はありません<p>
 <% end %>
+<%= link_to "ログイン画面へ", {:controller => "login", :action => "index"} %>
