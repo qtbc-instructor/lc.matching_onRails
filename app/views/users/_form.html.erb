@@ -13,8 +13,8 @@
 
   <!--入力フォーム-->
   <div class='field'>
-    <%= f.label :name , '名前' %>
-    <%= f.text_field :name %>
+    <%= f.label :name , '名前' %><br>
+    <%= f.text_field :name %><br>
     <font size="2" style="color: Red">
     <%= raw(@name_errors) %>
     </font>
@@ -24,8 +24,8 @@
   <% if @user.usertype == 1 %>
     <%= f.fields_for :company do |cf| %>
       <div class='field'>
-        <%= cf.label :companyname , '企業名' %>
-        <%= cf.text_field :companyname %>
+        <%= cf.label :companyname , '企業名' %><br>
+        <%= cf.text_field :companyname %><br>
         <font size="2" style="color: Red">
           <%= raw(@companyname_errors)%>
         </font>
@@ -34,24 +34,24 @@
   <% end %>
 
   <div class='field'>
-    <%= f.label :tel , '電話番号' %>
-    <%= f.text_field :tel %>
+    <%= f.label :tel , '電話番号(ハイフン付き)' %><br>
+    <%= f.text_field :tel %><br>
     <font size="2" style="color: Red">
       <%= raw(@tel_errors) %>
     </font>
   </div>
 
   <div class='field'>
-    <%= f.label :mail_address , 'メールアドレス' %>
-    <%= f.text_field :mail_address %>
+    <%= f.label :mail_address , 'メールアドレス' %><br>
+    <%= f.text_field :mail_address %><br>
     <font size="2" style="color: Red">
     <%= raw(@mail_errors) %>
     </font>
   </div>
 
   <div class='field'>
-    <%= f.label :password , 'パスワード' %>
-    <%= f.password_field :password %>
+    <%= f.label :password , 'パスワード(6文字以上12文字以内)' %><br>
+    <%= f.password_field :password %><br>
     <font size="2" style="color: Red">
     <%= raw(@pass_errors) %>
     </font>
