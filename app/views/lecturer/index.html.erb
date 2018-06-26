@@ -1,4 +1,3 @@
-<h1>講師マイページ</h1>
 <div style="float:left">
   メッセージ：
   <% if flash.empty? then %>
@@ -109,7 +108,7 @@
 
 <h3>通知</h3>
 <% if !@application.blank? then %>
-<% form_tag('/update', method: :post) do %>
+<%= form_tag('/update', method: :post) do %>
 <table border="1">
   <tr>
     <td>認証</td>
@@ -120,19 +119,18 @@
   </tr>
   <% @application.each do |f| %>
     <tr>
-      <td><%= radio_button ':status', 'selected', '2', {} %><br /></td>
-      <td><%= radio_button ':status', 'selected', '3', {} %><br /></td>
+      <td><%= radio_button_tag 'status', '2.#{f.skill_master.skilltype}', {} %><br /></td>
+      <td><%= radio_button_tag 'status', '3,#{f.skill_master.skilltype}', {} %><br /></td>
       <td><%= f.company.companyname %></td>
       <td><%= f.skill_master.skilltype %></td>
       <td><%= f.date %></td>
     </tr>
   <% end %>
 </table>
-
-  <%= submit_tag '認証する',date:{ confirm: '認証しますか？'} %>
+<%= submit_tag '認証する',date: {confirm: '認証しますか？'} %>
+<% end %>
 <% else %>
 <p>申請はありません</p>
-<% end %>
 <% end %>
 
 <h3>予定</h3>
