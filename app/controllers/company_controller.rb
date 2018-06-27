@@ -1,14 +1,9 @@
 class CompanyController < ApplicationController
 
-# 評価の平均を講師の横にだす
   def index
 
     @user = @usr
     @user_id = @user.id
-
-    @companies = User.joins(:company)
-      .select('users.id,companies.id')
-     .find(@user_id)
     @companies = User.joins(:company).select('users.id,companies.companyname,companies.id').find(@user_id)
 
     # status_master_idによってわかれる
@@ -31,7 +26,7 @@ class CompanyController < ApplicationController
     @status_state = Status.find(params[:id])
     @status_state.status_master_id = 4
     @status_state.save
-    redirect_to "/company"
+    redirect_to "/company" 
   end
 
   def update
@@ -66,22 +61,29 @@ class CompanyController < ApplicationController
     session[:search_skill] = params[:skill]
     session[:search_freeday] = params[:begin]
 
-    #検索実行
 
-    @freeday = Freeday.select('id,begin,end')
-                .where( begin: session[:search_freeday])
-
-    @freeday.each do |f|
+    @free = Freeday.select('id,begin,end')
+    @free.each do |f|
       @id = f.id
       @begin = f.begin
       @end = f.end
     end
 
-    @users = User.joins(:freeday, skill: :skill_master)
-     .select('users.*,freedays.begin,freedays.end,skill_masters.skilltype')
-     .where( skills: { skill_master_id: session[:search_skill] })
-     .where(Freeday.arel_table[:begin].lteq(session[:search_freeday]))
-     .where(Freeday.arel_table[:end].gteq(session[:search_freeday]))
+    #検索実行
+      @users = User.joins(:freeday, skill: :skill_master)
+       .select('users.*,freedays.begin,freedays.end,skill_masters.skilltype')
+       .where( skills: { skill_master_id: session[:search_skill] } )
+       .where( freedays: { begin: session[:search_freeday] } )
+
+      @users.each do |u_score|
+        @lecture_id = u_score.id
+      end
+
+    @users_status = User.joins(:freeday, skill: {skill_master: :status})
+      .select('users.*,freedays.begin,freedays.end,skill_masters.skilltype,statuses.score')
+      .where( skills: { skill_master_id: session[:search_skill] })
+      .where( freedays: { begin: session[:search_freeday] })
+      .where( statuses: { user_id: @lecture_id })
 
   end
 
@@ -93,26 +95,25 @@ class CompanyController < ApplicationController
      .where(@search_userid)
 
     @companies = User.joins(:company)
-      .select('companies.id')
+      .select('users.id,companies.id')
      .find(@usr.id)
 
-
-      @status = Status.new()
-      @status.user_id = @search_userid
-      @status.company_id = @companies.id
-      @status.skill_master_id = session[:search_skill]
-      @status.status_master_id = 1
-      @status.date = session[:search_freeday]
-      @status.score = 0
+     @status = Status.new()
+     @status.user_id = @search_userid
+     @status.company_id = @companies.id
+     @status.skill_master_id = session[:search_skill]
+     @status.status_master_id = 1
+     @status.date = session[:search_freeday]
+     @status.score = 0
+     logger.debug "=======================-"
+    if @status.save
+     flash[:notice] = "講師に申請しました。"
+     redirect_to :action => "index"
+    else
+      logger.debug @status.errors.messages
       logger.debug "=======================-"
-     if @status.save
-      flash[:notice] = "講師に申請しました。"
-      redirect_to :action => "index"
-     else
-       logger.debug @status.errors.messages
-       logger.debug "=======================-"
-      flash[:notice] = "講師に申請できませんでした。"
-      redirect_to :action => "search"
-    end
+     flash[:notice] = "講師に申請できませんでした。"
+     redirect_to :action => "search"
    end
- end
+  end
+end
