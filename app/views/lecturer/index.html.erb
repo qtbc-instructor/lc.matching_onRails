@@ -25,10 +25,11 @@
   </div>
 
   <!-- スキル登録 -->
-  <% if @addskills.present? then %>
+
+  <% if @add_skills.present? then %>
     <div class="entrySkill">
       <%= form_tag action: :add_skill do %>
-        <%= select_tag :addskill, options_from_collection_for_select(@addskills ,:id ,:skilltype ) %>
+        <%= select_tag :addskill, options_from_collection_for_select(@add_skills ,:id ,:skilltype ) %>
         <span class="entrySkillButton"><%= submit_tag 'スキル登録' %></span>
       <% end %>
     </div>
@@ -61,7 +62,7 @@
   </div>
 
   <!-- 登録スキル一覧 -->
-  <div>
+  <div class="blockA1">
     <table border="1" class="entrySkillTable">
       <th>登録済みスキル</th>
       <% if @skills.length == 0 then %>
