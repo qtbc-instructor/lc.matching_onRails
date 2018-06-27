@@ -154,11 +154,7 @@
   <% @plans.each do |f| %>
     <tr>
       <td><%= f.company.companyname %></td>
-      <td>
-        <% @skills.each do |f|  %>
-          <%= f.skill_master.skilltype %>
-        <% end %>
-      </td>
+      <td><%= f.skill_master.skilltype %></td>
       <td><%= f.date %></td>
     </tr>
   <% end %>
