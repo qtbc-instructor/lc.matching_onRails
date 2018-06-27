@@ -313,13 +313,9 @@ ul {
 }
 
 input[type="text"],input[type="password"]{
-	width:35%;
+	width:25%;
   height: 17px;
 }
-
-/* input[type="submit"]{
-  width: 30%;
-} */
 
 .msg{
   padding: 10px;
@@ -333,7 +329,7 @@ input[type="text"],input[type="password"]{
 }
 
 .selfTable{
-  width: 300px;
+  width: 80%;
   border-collapse: collapse;
   margin: 3px 3px 7px 3px;
 }
@@ -342,11 +338,17 @@ input[type="text"],input[type="password"]{
   border-bottom: thin solid #666;
 }
 
-.entryDaysButton{
+.entryDays{
   width: auto;
-  position: relative;
+  margin: 5px;
+  /* position: relative;
   top: -30px;
-  left: 310px;
+  left: 310px; */
+}
+
+.entrySkill{
+  width: auto;
+  margin: 5px;
 }
 
 .entryDaysTable{
@@ -359,9 +361,9 @@ input[type="text"],input[type="password"]{
 
 .entrySkillTable{
   margin: 10px;
-  position: relative;
+  /* position: relative;
   top: 40px;
-  left: auto;
+  left: auto; */
 }
 
 .deleteSkillButton{
@@ -376,6 +378,11 @@ input[type="text"],input[type="password"]{
   float: left;
   width: 55%;
 }
+
+.blockA1{
+  float: left;
+}
+
 
 /* .confirmTable,
 .offerTable,

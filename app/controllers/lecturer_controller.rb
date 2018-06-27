@@ -91,5 +91,5 @@ class LecturerController < ApplicationController
     #user.status_master_id = 2
     #user.save
   end
-  end
+  
 end
