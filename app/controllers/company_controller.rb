@@ -1,19 +1,28 @@
 class CompanyController < ApplicationController
 
+<<<<<<< HEAD
 # 評価の平均を講師の横にだす
 
 
   # GET /books
   # GET /books.json
+=======
+>>>>>>> goto2
   def index
 
     @user = @usr
     @user_id = @user.id
+<<<<<<< HEAD
 
     @companies = User.joins(:company)
       .select('users.id,companies.id')
      .find(@user_id)
 
+=======
+    @companies = User.joins(:company).select('users.id,companies.companyname,companies.id').find(@user_id)
+
+    # status_master_idによってわかれる
+>>>>>>> goto2
     @Applyings = Status.joins(:user, :skill_master).select('statuses.id, users.name, skill_masters.skilltype, statuses.date').where("status_master_id = ?", 1).where("company_id = ?", @companies.id)
     @Approval = Status.joins(:user, :skill_master).select('statuses.id, users.name, skill_masters.skilltype, statuses.date').where("status_master_id = ?", 2).where("company_id = ?", @companies.id)
     @Denial = Status.joins(:user, :skill_master).select('statuses.id, users.name, skill_masters.skilltype, statuses.date').where("status_master_id = ?", 3).where("company_id = ?", @companies.id)
@@ -33,11 +42,12 @@ class CompanyController < ApplicationController
     @status_state = Status.find(params[:id])
     @status_state.status_master_id = 4
     @status_state.save
+    redirect_to "/company"
   end
 
   def update
+    # 評価更新の確認
     logger.debug "=========================================="
-    # 評価更新
     params.each do |key,value|
       if key[0,8] == "statusID"
         id = key[8,10].to_i
