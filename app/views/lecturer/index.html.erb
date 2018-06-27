@@ -17,7 +17,7 @@
 
   <!-- 期間登録 -->
   <div class="entryDays">
-  <%= form_for(@newfreeday, :url => {:action => 'create_free'} ,method: :post) do |f| %>
+  <%= form_for(@new_freeday, :url => {:action => 'create_free'} ,method: :post) do |f| %>
     <%= f.hidden_field :user_id, :value => @usr.id %>
     <%= f.date_field :begin  %> 〜 <%= f.date_field :end  %>
     <%= f.submit '期間登録' %>
