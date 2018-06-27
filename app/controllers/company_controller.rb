@@ -26,11 +26,12 @@ class CompanyController < ApplicationController
     @status_state = Status.find(params[:id])
     @status_state.status_master_id = 4
     @status_state.save
+    redirect_to "/company", action: :update
   end
 
   def update
+    # 評価更新の確認
     logger.debug "=========================================="
-    # 評価更新
     params.each do |key,value|
       if key[0,8] == "statusID"
         id = key[8,10].to_i
