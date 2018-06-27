@@ -16,11 +16,11 @@
   </table>
 
   <!-- 期間登録 -->
-  <%= form_for(@new_freeday, :url => {:action => 'create_free'} ,method: :post) do |f| %>
+  <div class="entryDays">
+  <%= form_for(@newfreeday, :url => {:action => 'create_free'} ,method: :post) do |f| %>
     <%= f.hidden_field :user_id, :value => @usr.id %>
     <%= f.date_field :begin  %> 〜 <%= f.date_field :end  %>
-    <div class="entryDaysButton">
-      <%= f.submit '期間登録' %>
+    <%= f.submit '期間登録' %>
   <% end %>
     </div>
 
@@ -31,11 +31,11 @@
       <%= select_tag :addskill, options_from_collection_for_select(@addskills ,:id ,:skilltype ) %>
       <span class="entrySkillButton"><%= submit_tag 'スキル登録' %></span>
     <% end %>
-  <% end %>
   </div>
+  <% end %>
 
   <!-- 受付期間一覧 -->
-  <div style="float:left">
+    <div class="blockA1">
     <table border="1" class="entryDaysTable">
       <th>申請受付期間</th>
       <% if @freedays.empty? then %>
@@ -79,8 +79,8 @@
             </tr>
           <% end %>
           <div class="deleteSkillButton">
-          <%= submit_tag '選択スキル削除' %>
-        </div>
+            <%= submit_tag '選択スキル削除' %>
+          </div>
         <% end %>
       <% end %>
     </table>

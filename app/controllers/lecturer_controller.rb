@@ -91,6 +91,11 @@ class LecturerController < ApplicationController
        Status.where(user_id: @usr).where(skill_master_id: @rejection).update(status_master_id: 3)
     end
     redirect_to action: :index
-  end
 
+
+     #user = Status.find(@user)
+    #user.status_master_id = 2
+    #user.save
+  end
+  
 end
