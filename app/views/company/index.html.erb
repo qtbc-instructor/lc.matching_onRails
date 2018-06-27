@@ -23,7 +23,7 @@
         <td><%= applying.name %></td>
         <td><%= applying.skilltype %></td>
         <td><%= applying.date %></td>
-        <td><%= link_to '取り消し', "/company/destroy/" + applying.id.to_s, method: :delete, data: { confirm: '講師'+applying.name+'さんに申請しますか？' } %></td>
+        <td><%= link_to '取り消し', "/company/destroy/" + applying.id.to_s, method: :delete, data: { confirm: '講師'+applying.name+'さんの申請を取り消しますか？' } %></td>
       </tr>
     <% end %>
   </tbody>
@@ -47,6 +47,7 @@
       <td><%= approval.name %></td>
       <td><%= approval.skilltype %></td>
       <td><%= approval.date %></td>
+      <td><%= submit_tag '確認' %></td>
       <td><%= link_to '講義終了', "/company/" + approval.id.to_s, method: :update2 %></td>
     </tr>
   <% end %>
