@@ -88,34 +88,6 @@
 </div>
 
 <div class="blockB">
-  <table border="1" class="historyLectureTable">
-    <tr>
-      <th colspan="4">講師履歴</th>
-    </tr>
-    <tr>
-      <th>会社名</th>
-      <th>スキル</th>
-      <th>日付</th>
-      <th>評価</th>
-    </tr>
-    <% if @status.length != 0 %>
-      <% @status.each do |f| %>
-        <tr>
-          <td><%= f.company.companyname %></td>
-          <td><%= f.skill_master.skilltype %></td>
-          <td><%= f.date %></td>
-          <td align='center'><%= f.score %></td>
-        </tr>
-      <% end %>
-    <% else %>
-      <tr>
-        <td colspan="4">なし</td>
-      </tr>
-    <% end %>
-  </table>
-</div>
-<hr style="clear:left">
-
 <h3>通知</h3>
 <% if !@application.blank? then %>
 <%= form_tag('lecturer/update', method: :post) do %>
@@ -162,4 +134,34 @@
 <% else %>
  <p>予定はありません<p>
 <% end %>
+</div>
+<hr style="clear:left">
+
+<table border="1" class="historyLectureTable">
+  <tr>
+    <th colspan="4">講師履歴</th>
+  </tr>
+  <tr>
+    <th>会社名</th>
+    <th>スキル</th>
+    <th>日付</th>
+    <th>評価</th>
+  </tr>
+  <% if @status.length != 0 %>
+    <% @status.each do |f| %>
+      <tr>
+        <td><%= f.company.companyname %></td>
+        <td><%= f.skill_master.skilltype %></td>
+        <td><%= f.date %></td>
+        <td align='center'><%= f.score %></td>
+      </tr>
+    <% end %>
+  <% else %>
+    <tr>
+      <td colspan="4">なし</td>
+    </tr>
+  <% end %>
+</table>
+
+
 <%= link_to "ログイン画面へ", {:controller => "login", :action => "index"} %>
