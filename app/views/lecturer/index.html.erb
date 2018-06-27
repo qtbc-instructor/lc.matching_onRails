@@ -102,8 +102,8 @@
     </tr>
     <% @application.each do |f| %>
       <tr>
-        <td><%= radio_button_tag 'status', '2,#{f.skill_master_id}', {} %><br /></td>
-        <td><%= radio_button_tag 'status', '3,#{f.skill_master_id}', {} %><br /></td>
+        <td><%= radio_button_tag 'status', "2,#{f.skill_master_id}", {} %><br /></td>
+        <td><%= radio_button_tag 'status', "3,#{f.skill_master_id}", {} %><br /></td>
         <td><%= f.company.companyname %></td>
         <td><%= f.skill_master.skilltype %></td>
         <td><%= f.date %></td>

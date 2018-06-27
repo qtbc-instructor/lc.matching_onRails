@@ -1,7 +1,9 @@
 class CompanyController < ApplicationController
 
   def index
-
+    if @usr.usertype != 1 then
+      redirect_to '/'
+    end
     @user = @usr
     @user_id = @user.id
     @companies = User.joins(:company).select('users.id,companies.companyname,companies.id').find(@user_id)
@@ -26,7 +28,7 @@ class CompanyController < ApplicationController
     @status_state = Status.find(params[:id])
     @status_state.status_master_id = 4
     @status_state.save
-    redirect_to "/company" 
+    redirect_to "/company"
   end
 
   def update
@@ -54,6 +56,8 @@ class CompanyController < ApplicationController
    end
 
 
+
+
   def search
     #Viewで検索条件表示に使用
     @skill_masters = SkillMaster.all
@@ -73,7 +77,8 @@ class CompanyController < ApplicationController
       @users = User.joins(:freeday, skill: :skill_master)
        .select('users.*,freedays.begin,freedays.end,skill_masters.skilltype')
        .where( skills: { skill_master_id: session[:search_skill] } )
-       .where( freedays: { begin: session[:search_freeday] } )
+       .where(Freeday.arel_table[:begin].lteq(session[:search_freeday]))
+       .where(Freeday.arel_table[:end].gteq(session[:search_freeday]))
 
       @users.each do |u_score|
         @lecture_id = u_score.id

@@ -1,9 +1,9 @@
 <p id="notice"><%= notice %></p>
-<h1>ようこそ<%=@companies.id %>さん</h1>  
+<h1>ようこそ<%= @usr.name %>さん</h1>
 
 <table>
   <tr> <th align='left'>企業ID</th> <td><%= @usr.id %></td> </tr>
-  <tr> <th align='left'>企業名</th> <td><%= @usr.name %></td> </tr>
+  <tr> <th align='left'>企業名</th> <td><%= @companies.companyname %></td> </tr>
 </table>
 <!-- 申請中 -->
 <h3>申し込み中</h3>

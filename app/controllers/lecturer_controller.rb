@@ -1,7 +1,9 @@
 class LecturerController < ApplicationController
 
   def index
-
+    if @usr.usertype != 0 then
+      redirect_to '/'
+    end
     @application = Status.where(user_id: @usr).where(status_master_id: 1)
     @plans = Status.where(user_id: @usr).where(status_master_id: 2)
 
