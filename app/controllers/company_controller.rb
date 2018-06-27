@@ -26,6 +26,7 @@ class CompanyController < ApplicationController
     @status_state = Status.find(params[:id])
     @status_state.status_master_id = 4
     @status_state.save
+    redirect_to "/company"
   end
 
   def update
