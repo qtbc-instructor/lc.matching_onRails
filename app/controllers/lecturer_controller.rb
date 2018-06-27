@@ -88,7 +88,6 @@ class LecturerController < ApplicationController
     if params[:status].match(/2,*/) then
        @authentication = params[:status].delete("2,")
        Status.where(user_id: @usr).where(skill_master_id: @authentication).update(status_master_id: 2)
-
        # @users = Status.where(user_id: @user).where('skilltype LIKE', @authentication)
 
     elsif  params[:status].match(/3,*/) then
