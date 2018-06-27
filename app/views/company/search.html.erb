@@ -1,7 +1,4 @@
 <p id="notice"><%= notice %></p>
-<%= @begin %>
-<%= @end %>
-<%= @search_freeday %>
 <h1>講師検索フォーム</h1>
 <p>希望するスキルと日付の両方がマッチした講師が表示されます</p>
 <%= form_tag({ controller: :company, action: :search },
@@ -15,30 +12,8 @@
 <% if @users.length == 0 then %>
 <%="検索してください。または条件に該当する講師がおりません" %>
 <% else %>
-
-
-<!-- 評価の平均をだす方法をきく -->
-<%= @users_status.each do |lecture| %>
-  <table border="1">
-    <tr>
-      <td>ID</td>
-      <td>講師名</td>
-      <td>評価</td>
-    </tr>
-    <tr>
-      <td><%= lecture.id %></td>
-      <td><%= lecture.name %></td>
-      <td><%= lecture.score/@users_status.length %></td>
-    </tr>
-  </table>
-<% end %>
-
-
-
-<%= @users.each do |user| %>
 <table border="1">
   <tr>
-    <td>ID</td>
     <td>講師名</td>
     <td>電話番号</td>
     <td>メールアドレス</td>
@@ -46,17 +21,15 @@
     <td>言語</td>
     <td>申請</td>
   </tr>
+  <%= @users.each do |user| %>
   <tr>
-    <td><%= user.id %></td>
     <td><%= user.name %></td>
     <td><%= user.tel %></td>
     <td><%= user.mail_address %></td>
     <td><%= user.begin %></td>
     <td><%= user.skilltype %></td>
     <td><%= link_to '講師に申請する', company_result_path(id: user.id), method: :result, data: { confirm: '講師'+user.name+'さんに申請しますか？' } %></td>
+  </tr>
+  <% end %>
 </table>
-<% end %><br>
-
-
-
 <% end %>

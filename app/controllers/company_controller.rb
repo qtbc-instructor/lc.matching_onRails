@@ -66,29 +66,22 @@ class CompanyController < ApplicationController
     session[:search_skill] = params[:skill]
     session[:search_freeday] = params[:begin]
 
+    #検索実行
 
-    @free = Freeday.select('id,begin,end')
-    @free.each do |f|
+    @freeday = Freeday.select('id,begin,end')
+                .where( begin: session[:search_freeday])
+
+    @freeday.each do |f|
       @id = f.id
       @begin = f.begin
       @end = f.end
     end
 
-    #検索実行
-      @users = User.joins(:freeday, skill: :skill_master)
-       .select('users.*,freedays.begin,freedays.end,skill_masters.skilltype')
-       .where( skills: { skill_master_id: session[:search_skill] } )
-       .where( freedays: { begin: session[:search_freeday] } )
-
-      @users.each do |u_score|
-        @lecture_id = u_score.id
-      end
-
-    @users_status = User.joins(:freeday, skill: {skill_master: :status})
-      .select('users.*,freedays.begin,freedays.end,skill_masters.skilltype,statuses.score')
-      .where( skills: { skill_master_id: session[:search_skill] })
-      .where( freedays: { begin: session[:search_freeday] })
-      .where( statuses: { user_id: @lecture_id })
+    @users = User.joins(:freeday, skill: :skill_master)
+     .select('users.*,freedays.begin,freedays.end,skill_masters.skilltype')
+     .where( skills: { skill_master_id: session[:search_skill] })
+     .where(Freeday.arel_table[:begin].lteq(session[:search_freeday]))
+     .where(Freeday.arel_table[:end].gteq(session[:search_freeday]))
 
   end
 
@@ -100,25 +93,26 @@ class CompanyController < ApplicationController
      .where(@search_userid)
 
     @companies = User.joins(:company)
-      .select('users.id,companies.id')
+      .select('companies.id')
      .find(@usr.id)
 
-     @status = Status.new()
-     @status.user_id = @search_userid
-     @status.company_id = @companies.id
-     @status.skill_master_id = session[:search_skill]
-     @status.status_master_id = 1
-     @status.date = session[:search_freeday]
-     @status.score = 0
-     logger.debug "=======================-"
-    if @status.save
-     flash[:notice] = "講師に申請しました。"
-     redirect_to :action => "index"
-    else
-      logger.debug @status.errors.messages
+
+      @status = Status.new()
+      @status.user_id = @search_userid
+      @status.company_id = @companies.id
+      @status.skill_master_id = session[:search_skill]
+      @status.status_master_id = 1
+      @status.date = session[:search_freeday]
+      @status.score = 0
       logger.debug "=======================-"
-     flash[:notice] = "講師に申請できませんでした。"
-     redirect_to :action => "search"
+     if @status.save
+      flash[:notice] = "講師に申請しました。"
+      redirect_to :action => "index"
+     else
+       logger.debug @status.errors.messages
+       logger.debug "=======================-"
+      flash[:notice] = "講師に申請できませんでした。"
+      redirect_to :action => "search"
+    end
    end
-  end
-end
+ end
