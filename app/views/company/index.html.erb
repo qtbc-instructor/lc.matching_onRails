@@ -1,11 +1,10 @@
 <p id="notice"><%= notice %></p>
-<h1>ようこそ<%= @usr.name %>さん</h1>
+<h1>ようこそ<%=@companies.id %>さん</h1>  
 
 <table>
-  <tr> <th align='left'>企業ID</th> <td><%= @companies.id %></td> </tr>
-  <tr> <th align='left'>企業名</th> <td><%= @companies.companyname %></td> </tr>
+  <tr> <th align='left'>企業ID</th> <td><%= @usr.id %></td> </tr>
+  <tr> <th align='left'>企業名</th> <td><%= @usr.name %></td> </tr>
 </table>
-
 <!-- 申請中 -->
 <h3>申し込み中</h3>
   <table border="5" frame="box">
@@ -29,7 +28,7 @@
   </tbody>
 </table>
 
-<!-- 承認済み -->
+<!-- 承認待ち -->
 <h3>承認済み</h3>
 <p>＊終了した講師は講義終了ボタンを押して更新してください</p>
 <table border="5" frame="box">
