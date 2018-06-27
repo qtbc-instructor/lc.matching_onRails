@@ -9,7 +9,7 @@ class LecturerController < ApplicationController
       skill_ids.push(f.skill_master_id)
     end
     @add_skills = SkillMaster.where.not(id: skill_ids)
-    @status = Status.where(user_id: @usr,status_master_id: 5).limit(10).order(id: "DESC")
+    @status = Status.where(user_id: @usr,status_master_id: 5).order(id: "DESC").limit(10)
   end
 
   def create_free
