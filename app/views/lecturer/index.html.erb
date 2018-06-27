@@ -10,7 +10,7 @@
   </div>
 
   <!-- 講師情報 -->
-  <table>
+  <table class="selfTable">
     <tr><th>講師ID</th><th>講師名</th><th>平均評価</th></tr>
     <td><%= @usr.id %></td><td><%= @usr.name %></td><td><%= @status.present? ? @status.average(:score).round(2) : 'なし'  %></td></tr>
   </table>
