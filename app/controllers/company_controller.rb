@@ -1,10 +1,5 @@
 class CompanyController < ApplicationController
 
-# 評価の平均を講師の横にだす
-
-
-  # GET /books
-  # GET /books.json
   def index
 
     @user = @usr
